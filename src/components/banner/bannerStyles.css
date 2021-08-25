@@ -1,0 +1,40 @@
+body {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.video {
+  object-fit: cover;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  filter: brightness(40%);
+}
+
+/* //mobile styles */
+
+.mobileBannerImage {
+  filter: brightness(40%);
+}
+
+.brandName {
+  font-family: "Ubuntu", sans-serif;
+  font-size: 5vw;
+  letter-spacing: 0.2rem;
+  text-shadow: 1px 1px black;
+  color: white;
+}
+
+.description {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.2vw;
+  letter-spacing: 0.1rem;
+  color: white;
+}
+
+.mobileDscription {
+  font-family: "Roboto", sans-serif;
+  font-size: 2vw;
+  letter-spacing: 0.1rem;
+  color: white;
+}
