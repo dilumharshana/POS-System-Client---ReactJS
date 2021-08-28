@@ -7,6 +7,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircleSharpIcon from "@material-ui/icons/AccountCircleSharp";
 import Toolbar from "@material-ui/core/Toolbar";
+import { Link } from "react-router-dom";
 
 //import styles
 import { styles } from "./navbarStyles.js";
@@ -30,7 +31,9 @@ export const NavBar = () => {
         </Box>
         <Box className={classes.menuTexts}>Blog</Box>
         <Button className={classes.loginButton} variant="contained">
-          Login
+          <Link to="/login" exact>
+            Login
+          </Link>
         </Button>
       </Toolbar>
     </AppBar>

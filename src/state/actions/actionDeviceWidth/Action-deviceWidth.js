@@ -1,4 +1,4 @@
-import { DEVICE_WIDTH } from "../types";
+import { DEVICE_WIDTH } from "../../types";
 
 export const setDeviceWidth = () => ({
   type: DEVICE_WIDTH,

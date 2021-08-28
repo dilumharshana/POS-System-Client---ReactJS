@@ -11,7 +11,7 @@ import { Benifits } from "../../components/benifits/benifits";
 import { CustomerSupport } from "../../components/customerSupport/customerSuport";
 
 //actions
-import { setDeviceWidth } from "../../state/actions/Action-deviceWidth";
+import { setDeviceWidth } from "../../state/actions/actionDeviceWidth/Action-deviceWidth";
 
 export const IndexPage = () => {
   const setNewDeviceWidth = bindActionCreators(setDeviceWidth, useDispatch());
