@@ -1,11 +1,7 @@
-import { useState } from "react";
 import { Grid, Box, Paper, AppBar, Toolbar } from "@material-ui/core";
 import Alert from "react-bootstrap/Alert";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
-//components
-import { NavBar } from "../../components/navbar/navbar";
 
 //styles
 import { styles } from "./userAuthStyles";
@@ -16,8 +12,6 @@ export const UserAuthTemplate = (props) => {
 
   const useStyles = styles();
   const classes = useStyles();
-
-  const [page, setPage] = useState(props.page);
 
   return (
     <Grid
@@ -42,11 +36,11 @@ export const UserAuthTemplate = (props) => {
       </AppBar>
 
       <Grid item xs={11} sm={11} md={8} lg={4} xl={4}>
-        {!userLoginFail && (
-          <Alert variant="danger">Incorrect email or password !</Alert>
+        {!userLoginFail.state && (
+          <Alert variant="danger">{props.message}</Alert>
         )}
         <Paper elevation="3" className={classes.paper}>
-          {props.children}
+          {userLoginFail.message}
         </Paper>
       </Grid>
     </Grid>

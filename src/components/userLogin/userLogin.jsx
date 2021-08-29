@@ -70,10 +70,10 @@ export const UserLogin = () => {
       setLoading(false);
     } catch (error) {
       console.log(error.response.data);
-      userLoginState(false);
+      userLoginState({ state: false, message: error.response.data });
       setLoading(false);
 
-      setTimeout(() => userLoginState(true), 3000);
+      setTimeout(() => userLoginState({ state: true, message: null }), 3000);
     }
   };
 
