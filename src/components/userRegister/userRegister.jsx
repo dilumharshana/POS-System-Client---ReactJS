@@ -36,7 +36,7 @@ export const UserRegister = () => {
   };
 
   return (
-    <UserAuthTemplate>
+    <UserAuthTemplate page="Login">
       <Grid container direction="column">
         <Grid>
           {/* topic-------------------- */}

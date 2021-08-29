@@ -28,9 +28,8 @@ ReactDOM.render(
         <App>
           <Switch>
             <Route exact path="/register" component={UserRegister} />
-            <Route exact path="/login">
-              {userLogin ? <PosSystem /> : <UserLogin />}
-            </Route>
+            <Route exact path="/login" component={UserLogin} />
+            <Route exact path="/pos" component={PosSystem} />
             <Route exact path="/">
               {userLogin ? <PosSystem /> : <IndexPage />}
             </Route>

@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { useState } from "react";
+import { useHistory } from "react-router";
+import { useEffect, useState } from "react";
 import {
   Grid,
   Box,
@@ -12,7 +13,6 @@ import {
 } from "@material-ui/core";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import CircularProgress from "@material-ui/core/CircularProgress";
-
 import { UserAuthTemplate } from "../../pages/UserAuthTemplate/userAuthUserAuthTemplate";
 import axios from "axios";
 
@@ -22,8 +22,25 @@ import { setUserLoginFail } from "../../state/actions/actionUserLoginState/Actio
 //api config file
 import { config } from "../../configs/jsonConfig";
 
+//styles
+import { styles } from "./userLoginStyles";
+
 //component
+
 export const UserLogin = () => {
+  const history = useHistory();
+
+  useEffect(() => {
+    const userLoged = localStorage.getItem("userInfo");
+
+    if (userLoged) {
+      history.push("/pos");
+    }
+  });
+
+  const useStyles = styles();
+  const classes = useStyles();
+
   //statets
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -40,7 +57,7 @@ export const UserLogin = () => {
       setLoading(true);
 
       const { data } = await axios.post(
-        "http://localhost:2000/login",
+        "http://localhost:2000/api/login",
         {
           email,
           password,
@@ -49,18 +66,19 @@ export const UserLogin = () => {
       );
 
       localStorage.setItem("userInfo", JSON.stringify(data));
-
+      history.push("/pos");
       setLoading(false);
     } catch (error) {
-      userLoginState(true);
+      console.log(error.response.data);
+      userLoginState(false);
       setLoading(false);
 
-      setTimeout(() => userLoginState(false), 3000);
+      setTimeout(() => userLoginState(true), 3000);
     }
   };
 
   return (
-    <UserAuthTemplate>
+    <UserAuthTemplate page="Register">
       <Grid container direction="column">
         <Grid>
           <Box item pt={2} display="flex" justifyContent="center" pt={4} pb={3}>
@@ -103,9 +121,8 @@ export const UserLogin = () => {
             />
           </Box>
         </Grid>
-
         <Grid>
-          <Box item pt={2} display="flex" justifyContent="center" pb={2}>
+          <Box item pt={2} display="flex" justifyContent="center">
             {loading ? (
               <CircularProgress color="secondary" />
             ) : (
@@ -113,6 +130,11 @@ export const UserLogin = () => {
                 Sign In
               </Button>
             )}
+          </Box>
+        </Grid>
+        <Grid item pb={2}>
+          <Box className={classes.forgotPasswordLables} p={2}>
+            Forget password
           </Box>
         </Grid>
 

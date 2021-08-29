@@ -19,7 +19,7 @@ export const IndexPage = () => {
   return (
     <Grid container justifyContent="center">
       <Grid item>
-        <NavBar />
+        <NavBar noLoginBtn="false" />
       </Grid>
 
       <Grid item>

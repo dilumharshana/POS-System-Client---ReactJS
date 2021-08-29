@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 //import styles
 import { styles } from "./navbarStyles.js";
 
-export const NavBar = () => {
+export const NavBar = (props) => {
   const [drawer, setDrawer] = useState(false);
   const deviceWidth = useSelector((store) => store.deviceWidth);
 
@@ -20,21 +20,25 @@ export const NavBar = () => {
   const classes = styles()();
 
   //large screen navbar
-  const pcNavBar = () => (
+  const pcNavBar = (props) => (
     <AppBar className={classes.root} position="absolute">
       <Toolbar>
         <Box className={classes.menuTexts} mr={2}>
-          Download
+          HOME
         </Box>
         <Box className={classes.menuTexts} mr={2}>
           Docs
         </Box>
         <Box className={classes.menuTexts}>Blog</Box>
-        <Button className={classes.loginButton} variant="contained">
-          <Link to="/login" exact>
-            Login
-          </Link>
-        </Button>
+        {props.noLoginBtn === true ? (
+          <h1 style={{ marginLeft: "auto" }}>EVONPOS</h1>
+        ) : (
+          <Button className={classes.loginButton} variant="contained">
+            <Link to="/login" exact>
+              Login
+            </Link>
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );
@@ -67,15 +71,7 @@ export const NavBar = () => {
                 EVONPOS
                 <Divider />
               </Box>
-              <Box
-                className={classes.drawerItems}
-                onClick={() => setDrawer(false)}
-                mt={3}
-                ml={3}
-                mr={8}
-              >
-                Download
-              </Box>
+
               <Box
                 className={classes.drawerItems}
                 onClick={() => setDrawer(false)}
@@ -112,5 +108,5 @@ export const NavBar = () => {
 
   // return isMobile ? mobileNavBar() : pcNavBar();
   if (deviceWidth <= 800) return mobileNavBar();
-  return pcNavBar();
+  return pcNavBar(props);
 };
