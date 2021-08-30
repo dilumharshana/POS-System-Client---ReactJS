@@ -9,6 +9,7 @@ import { styles } from "./userAuthStyles";
 export const UserAuthTemplate = (props) => {
   //user login state
   const userLoginFail = useSelector((store) => store.userLoginState);
+  console.log(userLoginFail);
 
   const useStyles = styles();
   const classes = useStyles();
@@ -29,7 +30,7 @@ export const UserAuthTemplate = (props) => {
 
           <Box style={{ marginLeft: "auto" }}>
             <Link to={props.page === "Login" ? "/login" : "/register"}>
-              {page}
+              {props.page}
             </Link>
           </Box>
         </Toolbar>
@@ -37,10 +38,10 @@ export const UserAuthTemplate = (props) => {
 
       <Grid item xs={11} sm={11} md={8} lg={4} xl={4}>
         {!userLoginFail.state && (
-          <Alert variant="danger">{props.message}</Alert>
+          <Alert variant="danger">{userLoginFail.message}</Alert>
         )}
         <Paper elevation="3" className={classes.paper}>
-          {userLoginFail.message}
+          {props.children}
         </Paper>
       </Grid>
     </Grid>

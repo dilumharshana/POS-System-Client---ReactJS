@@ -69,8 +69,7 @@ export const UserLogin = () => {
       history.push("/pos");
       setLoading(false);
     } catch (error) {
-      console.log(error.response.data);
-      userLoginState({ state: false, message: error.response.data });
+      userLoginState(false);
       setLoading(false);
 
       setTimeout(() => userLoginState({ state: true, message: null }), 3000);
