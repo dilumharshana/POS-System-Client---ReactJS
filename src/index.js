@@ -2,12 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./state/store";
 
@@ -17,9 +12,11 @@ import { UserLogin } from "./components/userLogin/userLogin";
 import { UserRegister } from "./components/userRegister/userRegister";
 import { PosSystem } from "./pages/possystem/possystem";
 import { NotFound } from "./pages/notFound/notFound";
-
-//user login chek
-const userLogin = localStorage.getItem("userInfo");
+import {
+  ProtectedLogin,
+  DirectLogin,
+  Login,
+} from "./pages/protectedLogin/protectedRoutes";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -28,11 +25,9 @@ ReactDOM.render(
         <App>
           <Switch>
             <Route exact path="/register" component={UserRegister} />
-            <Route exact path="/login" component={UserLogin} />
-            <Route exact path="/pos" component={PosSystem} />
-            <Route exact path="/">
-              {userLogin ? <PosSystem /> : <IndexPage />}
-            </Route>
+            <Login exact path="/login" component={UserLogin} />
+            <DirectLogin exact path="/" component={IndexPage} />
+            <ProtectedLogin exact path="/pos" component={PosSystem} />
             <Route component={NotFound} />
           </Switch>
         </App>

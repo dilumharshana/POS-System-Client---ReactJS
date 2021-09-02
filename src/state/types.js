@@ -1,2 +1,3 @@
 export const DEVICE_WIDTH = "DEVICE_WIDTH";
 export const USER_LOGIN_FAIL = "USER_LOGIN_FAIL";
+export const LOGIN_PROCESS = "LOGIN_PROCESS";

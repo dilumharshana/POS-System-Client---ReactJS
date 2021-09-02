@@ -38,116 +38,141 @@ export const UserRegister = () => {
   return (
     <UserAuthTemplate page="Login">
       <Grid container direction="column">
-        <Grid>
-          {/* topic-------------------- */}
-          <Box item pt={2} display="flex" justifyContent="center" pt={4} pb={3}>
-            <h2>Sign In</h2>
-          </Box>
-        </Grid>
-
-        {/* name ------------------------------- */}
-        <Grid>
-          <Box item pt={2} display="flex" justifyContent="center" p={2}>
-            <TextField
-              fullWidth
-              variant="outlined"
-              size="small"
-              label="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-          </Box>
-        </Grid>
-
-        {/* email------------------------------------------ */}
-        <Grid>
-          <Box item pt={2} display="flex" justifyContent="center" p={2}>
-            <TextField
-              fullWidth
-              id="outlined-basic"
-              variant="outlined"
-              size="small"
-              label="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </Box>
-        </Grid>
-
-        {/* password--------------------------------------------- */}
-        <Grid>
-          <Box item pt={2} display="flex" p={2}>
-            <TextField
-              fullWidth
-              type={showPassword ? "text" : "password"}
-              id="outlined-basic"
-              variant="outlined"
-              size="small"
-              label="Password"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton onClick={() => setShowPassword(!showPassword)}>
-                      {!showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </Box>
-        </Grid>
-
-        {/* retyepe password -----------------------------------*/}
-        <Grid>
-          <Box item pt={2} display="flex" justifyContent="center" p={2}>
-            <TextField
-              fullWidth
-              type={showRetypePassword ? "text" : "password"}
-              id="outlined-basic"
-              variant="outlined"
-              size="small"
-              label="Retype-Password"
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton
-                      onClick={() => setShowRetypePassword(!showRetypePassword)}
-                    >
-                      {!showRetypePassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              }}
-              value={retypedPassword}
-              onChange={(e) => setRetypedPassword(e.target.value)}
-            />
-          </Box>
-        </Grid>
-
-        {/* sign in button------------------------------------------- */}
-        <Grid>
-          <Box item pt={2} display="flex" justifyContent="center" pb={2}>
-            <Button
-              size="large"
-              variant="contained"
-              onClick={() => registerUser()}
+        <form>
+          <Grid>
+            {/* topic-------------------- */}
+            <Box
+              item
+              pt={2}
+              display="flex"
+              justifyContent="center"
+              pt={4}
+              pb={3}
             >
-              Sign In
-            </Button>
-          </Box>
-        </Grid>
+              <h2>Sign In</h2>
+            </Box>
+          </Grid>
 
-        {/* googlr auth button ---------------------------------------- */}
-        <Divider light={true} />
-        <Grid>
-          <Box item pt={2} display="flex" justifyContent="center" mt={2} mb={3}>
-            <Button size="large" variant="contained">
-              Sign In with google
-            </Button>
-          </Box>
-        </Grid>
+          {/* name ------------------------------- */}
+          <Grid>
+            <Box item pt={2} display="flex" justifyContent="center" p={2}>
+              <TextField
+                fullWidth
+                id="outlined-basic"
+                variant="outlined"
+                size="small"
+                label="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </Box>
+          </Grid>
+
+          {/* email------------------------------------------ */}
+          <Grid>
+            <Box item pt={2} display="flex" justifyContent="center" p={2}>
+              <TextField
+                fullWidth
+                id="outlined-basic"
+                variant="outlined"
+                size="small"
+                label="Email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </Box>
+          </Grid>
+
+          {/* password--------------------------------------------- */}
+          <Grid>
+            <Box item pt={2} display="flex" p={2}>
+              <TextField
+                fullWidth
+                type={showPassword ? "text" : "password"}
+                id="outlined-basic"
+                variant="outlined"
+                size="small"
+                label="Password"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() => setShowPassword(!showPassword)}
+                      >
+                        {!showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </Box>
+          </Grid>
+
+          {/* retyepe password -----------------------------------*/}
+          <Grid>
+            <Box item pt={2} display="flex" justifyContent="center" p={2}>
+              <TextField
+                fullWidth
+                type={showRetypePassword ? "text" : "password"}
+                id="outlined-basic"
+                variant="outlined"
+                size="small"
+                label="Retype-Password"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={() =>
+                          setShowRetypePassword(!showRetypePassword)
+                        }
+                      >
+                        {!showRetypePassword ? (
+                          <VisibilityOff />
+                        ) : (
+                          <Visibility />
+                        )}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                value={retypedPassword}
+                onChange={(e) => setRetypedPassword(e.target.value)}
+              />
+            </Box>
+          </Grid>
+
+          {/* sign in button------------------------------------------- */}
+          <Grid>
+            <Box item pt={2} display="flex" justifyContent="center" pb={2}>
+              <Button
+                size="large"
+                variant="contained"
+                onClick={() => registerUser()}
+              >
+                Sign In
+              </Button>
+            </Box>
+          </Grid>
+
+          {/* googlr auth button ---------------------------------------- */}
+          <Divider light={true} />
+          <Grid>
+            <Box
+              item
+              pt={2}
+              display="flex"
+              justifyContent="center"
+              mt={2}
+              mb={3}
+            >
+              <Button size="large" variant="contained">
+                Sign In with google
+              </Button>
+            </Box>
+          </Grid>
+        </form>
       </Grid>
     </UserAuthTemplate>
   );

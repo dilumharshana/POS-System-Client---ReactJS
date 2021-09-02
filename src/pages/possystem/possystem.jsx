@@ -1,18 +1,10 @@
 import { Button } from "@material-ui/core";
-import { useEffect } from "react";
 
 //actions
 import { useHistory } from "react-router-dom";
 
 export const PosSystem = () => {
   const history = useHistory();
-  const userInfo = localStorage.getItem("userInfo");
-
-  useEffect(() => {
-    if (!userInfo) {
-      history.push("/login");
-    }
-  });
 
   return (
     <>

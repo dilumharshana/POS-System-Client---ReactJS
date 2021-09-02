@@ -9,7 +9,6 @@ import { styles } from "./userAuthStyles";
 export const UserAuthTemplate = (props) => {
   //user login state
   const userLoginFail = useSelector((store) => store.userLoginState);
-  console.log(userLoginFail);
 
   const useStyles = styles();
   const classes = useStyles();
