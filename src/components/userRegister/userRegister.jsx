@@ -11,34 +11,39 @@ import {
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import axios from "axios";
 
+//components
 import { UserAuthTemplate } from "../../pages/UserAuthTemplate/userAuthUserAuthTemplate";
+
+//formik form handler
+import { formHandler } from "../../configs/validationSchema";
 
 export const UserRegister = () => {
   // states------------------------
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [retypedPassword, setRetypedPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showRetypePassword, setShowRetypePassword] = useState(false);
 
+  //registration function
   const registerUser = async () => {
+    console.log("hello");
     try {
-      const data = await axios.post("http://localhost:2000/users/register", {
-        name,
-        email,
-        password,
-      });
-      console.log(data.data);
+      const data = await axios.post(
+        "http://localhost:2000/api/users/register",
+        formik.values
+      );
+      console.log(formik.values);
     } catch (error) {
       console.log(error);
     }
   };
 
+  //form state
+  const useFormik = formHandler(registerUser);
+  const formik = useFormik();
+
   return (
     <UserAuthTemplate page="Login">
-      <Grid container direction="column">
-        <form>
+      <form onSubmit={formik.handleSubmit}>
+        <Grid container direction="column">
           <Grid>
             {/* topic-------------------- */}
             <Box
@@ -58,12 +63,16 @@ export const UserRegister = () => {
             <Box item pt={2} display="flex" justifyContent="center" p={2}>
               <TextField
                 fullWidth
+                name="name"
+                value={formik.values.name}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 id="outlined-basic"
                 variant="outlined"
                 size="small"
                 label="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                error={formik.touched.name && Boolean(formik.errors.name)}
+                helperText={formik.touched.name && formik.errors.name}
               />
             </Box>
           </Grid>
@@ -73,12 +82,16 @@ export const UserRegister = () => {
             <Box item pt={2} display="flex" justifyContent="center" p={2}>
               <TextField
                 fullWidth
+                name="email"
+                value={formik.values.email}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 id="outlined-basic"
                 variant="outlined"
                 size="small"
                 label="Email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
               />
             </Box>
           </Grid>
@@ -88,11 +101,19 @@ export const UserRegister = () => {
             <Box item pt={2} display="flex" p={2}>
               <TextField
                 fullWidth
+                name="password"
+                value={formik.values.password}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 type={showPassword ? "text" : "password"}
                 id="outlined-basic"
                 variant="outlined"
                 size="small"
                 label="Password"
+                error={
+                  formik.touched.password && Boolean(formik.errors.password)
+                }
+                helperText={formik.touched.password && formik.errors.password}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -104,8 +125,6 @@ export const UserRegister = () => {
                     </InputAdornment>
                   ),
                 }}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
               />
             </Box>
           </Grid>
@@ -115,11 +134,21 @@ export const UserRegister = () => {
             <Box item pt={2} display="flex" justifyContent="center" p={2}>
               <TextField
                 fullWidth
+                name="repassword"
+                value={formik.values.repassword}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
                 type={showRetypePassword ? "text" : "password"}
                 id="outlined-basic"
                 variant="outlined"
                 size="small"
                 label="Retype-Password"
+                error={
+                  formik.touched.repassword && Boolean(formik.errors.repassword)
+                }
+                helperText={
+                  formik.touched.repassword && formik.errors.repassword
+                }
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
@@ -137,8 +166,6 @@ export const UserRegister = () => {
                     </InputAdornment>
                   ),
                 }}
-                value={retypedPassword}
-                onChange={(e) => setRetypedPassword(e.target.value)}
               />
             </Box>
           </Grid>
@@ -146,11 +173,7 @@ export const UserRegister = () => {
           {/* sign in button------------------------------------------- */}
           <Grid>
             <Box item pt={2} display="flex" justifyContent="center" pb={2}>
-              <Button
-                size="large"
-                variant="contained"
-                onClick={() => registerUser()}
-              >
+              <Button type="submit" size="large" variant="contained">
                 Sign In
               </Button>
             </Box>
@@ -172,8 +195,8 @@ export const UserRegister = () => {
               </Button>
             </Box>
           </Grid>
-        </form>
-      </Grid>
+        </Grid>
+      </form>
     </UserAuthTemplate>
   );
 };

@@ -45,6 +45,7 @@ export const UserLogin = () => {
   //user authentication function
 
   const logUser = async () => {
+    console.log("hello");
     try {
       setLoading(true);
       const { data } = await axios.post(
@@ -98,8 +99,8 @@ export const UserLogin = () => {
                 variant="outlined"
                 size="small"
                 label="Email"
-                error={Boolean(formik.errors.email)}
-                helperText={formik.touched.password && formik.errors.email}
+                error={formik.touched.email && Boolean(formik.errors.email)}
+                helperText={formik.touched.email && formik.errors.email}
               />
             </Box>
           </Grid>
@@ -108,8 +109,8 @@ export const UserLogin = () => {
             <Box item pt={2} display="flex" p={2}>
               <TextField
                 fullWidth
-                name="password"
-                value={formik.values.password}
+                name="passwordLogin"
+                value={formik.values.passwordLogin}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
                 type={showPassword ? "text" : "password"}
@@ -118,9 +119,12 @@ export const UserLogin = () => {
                 size="small"
                 label="Password"
                 error={
-                  formik.touched.password && Boolean(formik.errors.password)
+                  formik.touched.passwordLogin &&
+                  Boolean(formik.errors.passwordLogin)
                 }
-                helperText={formik.touched.password && formik.errors.password}
+                helperText={
+                  formik.touched.passwordLogin && formik.errors.passwordLogin
+                }
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
