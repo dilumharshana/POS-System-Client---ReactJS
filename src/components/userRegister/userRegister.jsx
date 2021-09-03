@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
 import {
   Grid,
   Box,
@@ -11,33 +13,52 @@ import {
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import axios from "axios";
 
+//actions
+import { setUserLoginFail } from "../../state/actions/actionUserLoginState/Action-userLoginFail";
+
 //components
 import { UserAuthTemplate } from "../../pages/UserAuthTemplate/userAuthUserAuthTemplate";
 
 //formik form handler
-import { formHandler } from "../../configs/validationSchema";
+import { registerFromHandler } from "../../configs/validationSchema";
 
 export const UserRegister = () => {
+  useEffect(() => {
+    return () => userRegistrationState({ state: true, message: null });
+  }, []);
+
   // states------------------------
   const [showPassword, setShowPassword] = useState(false);
   const [showRetypePassword, setShowRetypePassword] = useState(false);
 
+  //user registration state
+  const userRegistrationState = bindActionCreators(
+    setUserLoginFail,
+    useDispatch()
+  );
+
   //registration function
   const registerUser = async () => {
-    console.log("hello");
     try {
       const data = await axios.post(
         "http://localhost:2000/api/users/register",
         formik.values
       );
-      console.log(formik.values);
     } catch (error) {
-      console.log(error);
+      userRegistrationState({
+        state: false,
+        message: error.response.data,
+      });
+
+      setTimeout(
+        () => userRegistrationState({ state: true, message: null }),
+        4000
+      );
     }
   };
 
   //form state
-  const useFormik = formHandler(registerUser);
+  const useFormik = registerFromHandler(registerUser);
   const formik = useFormik();
 
   return (

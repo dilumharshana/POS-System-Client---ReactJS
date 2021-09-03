@@ -1,7 +1,7 @@
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { useHistory } from "react-router";
-import { useState } from "react";
 import {
   Grid,
   Box,
@@ -26,10 +26,15 @@ import { config } from "../../configs/jsonConfig";
 import { styles } from "./userLoginStyles";
 
 //formik form handler
-import { formHandler } from "../../configs/validationSchema";
+import { loginFormHandler } from "../../configs/validationSchema";
 
 //component
 export const UserLogin = () => {
+  useEffect(() => {
+    return () => {
+      userLoginState({ state: true, message: null });
+    };
+  }, []);
   const history = useHistory();
 
   //config styles
@@ -43,9 +48,8 @@ export const UserLogin = () => {
   const userLoginState = bindActionCreators(setUserLoginFail, useDispatch());
 
   //user authentication function
-
   const logUser = async () => {
-    console.log("hello");
+    console.log(formik.values);
     try {
       setLoading(true);
       const { data } = await axios.post(
@@ -66,7 +70,7 @@ export const UserLogin = () => {
   };
 
   //form statets
-  const useFormik = formHandler(logUser);
+  const useFormik = loginFormHandler(logUser);
   const formik = useFormik();
 
   return (
@@ -109,7 +113,7 @@ export const UserLogin = () => {
             <Box item pt={2} display="flex" p={2}>
               <TextField
                 fullWidth
-                name="passwordLogin"
+                name="password"
                 value={formik.values.passwordLogin}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
@@ -119,12 +123,9 @@ export const UserLogin = () => {
                 size="small"
                 label="Password"
                 error={
-                  formik.touched.passwordLogin &&
-                  Boolean(formik.errors.passwordLogin)
+                  formik.touched.password && Boolean(formik.errors.password)
                 }
-                helperText={
-                  formik.touched.passwordLogin && formik.errors.passwordLogin
-                }
+                helperText={formik.touched.password && formik.errors.password}
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
