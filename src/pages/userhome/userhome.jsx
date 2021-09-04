@@ -10,6 +10,9 @@ import {
   Tabs,
   Tab,
 } from "@material-ui/core";
+import SurroundSoundIcon from "@material-ui/icons/SurroundSound";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import PersonIcon from "@material-ui/icons/Person";
 import { useHistory } from "react-router";
 
 //components
@@ -29,7 +32,6 @@ export const UserHome = () => {
   useEffect(() => loaduser(), []);
 
   const deviceWidth = useSelector((store) => store.deviceWidth);
-  const currentUser = useSelector((store) => store.currentUser);
 
   //styles
   const classes = styles()();
@@ -70,17 +72,24 @@ export const UserHome = () => {
 
   const mobileView = () => {
     const tabProps = (index) => ({
-      id: `full-width-tab${index}`,
-      "area-controls": `full-width-tabpanel-${index}`,
+      id: `full-width-tab-${index}`,
+      "aria-controls": `full-width-tabpanel-${index}`,
     });
 
     const TabPanel = (props) => {
-      const { chidren, value, index } = props;
-      return <div>{value === index && <Box>{chidren}</Box>}</div>;
+      const { children, value, index } = props;
+      return <div>{value === index && <Box>{children}</Box>}</div>;
     };
 
     return (
       <>
+        <AppBar pt={10}>
+          <Toolbar>
+            <h4>hello</h4>
+          </Toolbar>
+        </AppBar>
+        <Toolbar />
+
         <AppBar>
           <Tabs
             value={tabValue}
@@ -88,19 +97,24 @@ export const UserHome = () => {
             variant="fullWidth"
             onChange={(event, newValue) => setTabValue(newValue)}
           >
-            <Tab label="Systems" {...tabProps(0)} />
-            <Tab label="Options" {...tabProps(1)} />
-            <Tab label="Profile" {...tabProps(2)} />
+            <Tab
+              label="Systems"
+              icon={<SurroundSoundIcon />}
+              {...tabProps(0)}
+            />
+            <Tab label="Options" icon={<AddCircleIcon />} {...tabProps(1)} />
+            <Tab label="Profile" icon={<PersonIcon />} {...tabProps(2)} />
           </Tabs>
         </AppBar>
+        <Toolbar />
         <TabPanel value={tabValue} index={0}>
-          1
+          <PosSystems />
         </TabPanel>
         <TabPanel value={tabValue} index={1}>
-          2
+          <Options />
         </TabPanel>
         <TabPanel value={tabValue} index={2}>
-          3
+          <Profile />
         </TabPanel>
       </>
     );
