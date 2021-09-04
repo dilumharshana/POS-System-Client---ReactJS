@@ -10,7 +10,7 @@ import { store } from "./state/store";
 import { IndexPage } from "./pages/indexPage/indexPage";
 import { UserLogin } from "./components/userLogin/userLogin";
 import { UserRegister } from "./components/userRegister/userRegister";
-import { PosSystem } from "./pages/possystem/possystem";
+import { UserHome } from "./pages/userhome/userhome";
 import { NotFound } from "./pages/notFound/notFound";
 import {
   ProtectedLogin,
@@ -27,7 +27,7 @@ ReactDOM.render(
             <Route exact path="/register" component={UserRegister} />
             <Login exact path="/login" component={UserLogin} />
             <DirectLogin exact path="/" component={IndexPage} />
-            <ProtectedLogin exact path="/pos" component={PosSystem} />
+            <ProtectedLogin exact path="/pos" component={UserHome} />
             <Route component={NotFound} />
           </Switch>
         </App>
