@@ -22,22 +22,30 @@ import { Options } from "../../components/userhome/options/options";
 
 //action
 import { setUserData } from "../../state/actions/actionLoadUser/setUserData";
+import { setDeviceWidth } from "../../state/actions/actionDeviceWidth/Action-deviceWidth";
 
 //styles
 import { styles } from "./userhomestyles";
 
 export const UserHome = () => {
-  const [tabValue, setTabValue] = useState(0);
   const loaduser = bindActionCreators(setUserData, useDispatch());
-  useEffect(() => loaduser(), []);
+  const setNewDeviceWidth = bindActionCreators(setDeviceWidth, useDispatch());
 
   const deviceWidth = useSelector((store) => store.deviceWidth);
+
+  const [tabValue, setTabValue] = useState(0);
+
+  useEffect(() => loaduser(), [deviceWidth]);
+  console.log(deviceWidth);
+
+  window.onresize = () => setNewDeviceWidth();
 
   //styles
   const classes = styles()();
 
   const history = useHistory();
 
+  //large screens
   const pcView = () => (
     <>
       <AppBar className={classes.bar}>
@@ -55,21 +63,23 @@ export const UserHome = () => {
           </Button>
         </Toolbar>
       </AppBar>
-      <Toolbar></Toolbar>
+      <Toolbar />
+      <Toolbar />
       <Grid container>
-        <Grid xs={12} sm={12} md={12} lg={4} xl={4}>
+        <Grid lg={3} xl={3}>
           <Profile />
         </Grid>
-        <Grid xs={12} sm={12} md={12} lg={5} xl={5}>
+        <Grid lg={6} xl={6}>
           <PosSystems />
         </Grid>
-        <Grid xs={12} sm={12} md={12} lg={3} xl={3}>
+        <Grid lg={3} xl={3}>
           <Options />
         </Grid>
       </Grid>
     </>
   );
 
+  //small screens
   const mobileView = () => {
     const tabProps = (index) => ({
       id: `full-width-tab-${index}`,
@@ -83,13 +93,6 @@ export const UserHome = () => {
 
     return (
       <>
-        <AppBar pt={10}>
-          <Toolbar>
-            <h4>hello</h4>
-          </Toolbar>
-        </AppBar>
-        <Toolbar />
-
         <AppBar>
           <Tabs
             value={tabValue}
@@ -107,6 +110,7 @@ export const UserHome = () => {
           </Tabs>
         </AppBar>
         <Toolbar />
+        <Toolbar />
         <TabPanel value={tabValue} index={0}>
           <PosSystems />
         </TabPanel>
@@ -120,6 +124,6 @@ export const UserHome = () => {
     );
   };
 
-  if (deviceWidth >= 800) return pcView();
+  if (deviceWidth >= 1280) return pcView();
   return mobileView();
 };

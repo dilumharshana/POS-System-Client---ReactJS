@@ -107,6 +107,6 @@ export const NavBar = (props) => {
   );
 
   // return isMobile ? mobileNavBar() : pcNavBar();
-  if (deviceWidth <= 800) return mobileNavBar();
+  if (deviceWidth < 1280) return mobileNavBar();
   return pcNavBar(props);
 };

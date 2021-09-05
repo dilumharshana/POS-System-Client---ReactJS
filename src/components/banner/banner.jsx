@@ -84,6 +84,6 @@ export const Banner = () => {
     </Grid>
   );
 
-  if (deviceWidth <= 800) return mobileBanner();
+  if (deviceWidth < 1280) return mobileBanner();
   return pcBanner();
 };
