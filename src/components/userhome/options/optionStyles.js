@@ -7,7 +7,7 @@ export const styles = () =>
       height: theme.spacing(10),
       boxShadow: "0 0 3px grey",
       "&::hover": {
-        background: "#417cfa",
+        background: "#417cfa ",
         color: "#fff",
       },
     },

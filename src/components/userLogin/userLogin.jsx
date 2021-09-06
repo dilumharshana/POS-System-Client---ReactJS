@@ -49,7 +49,6 @@ export const UserLogin = () => {
 
   //user authentication function
   const logUser = async () => {
-    console.log(formik.values);
     try {
       setLoading(true);
       const { data } = await axios.post(
