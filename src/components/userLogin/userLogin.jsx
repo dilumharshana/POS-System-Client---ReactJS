@@ -76,20 +76,13 @@ export const UserLogin = () => {
     <UserAuthTemplate page="Register">
       <form onSubmit={formik.handleSubmit}>
         <Grid container direction="column">
-          <Grid>
-            <Box
-              item
-              pt={2}
-              display="flex"
-              justifyContent="center"
-              pt={4}
-              pb={3}
-            >
+          <Grid item>
+            <Box pt={2} display="flex" justifyContent="center" pt={4} pb={3}>
               <h2>Login</h2>
             </Box>
           </Grid>
 
-          <Grid>
+          <Grid item>
             <Box item pt={2} display="flex" justifyContent="center" p={2}>
               <TextField
                 fullWidth
@@ -108,7 +101,7 @@ export const UserLogin = () => {
             </Box>
           </Grid>
 
-          <Grid>
+          <Grid item>
             <Box item pt={2} display="flex" p={2}>
               <TextField
                 fullWidth
@@ -139,7 +132,7 @@ export const UserLogin = () => {
               />
             </Box>
           </Grid>
-          <Grid>
+          <Grid item>
             <Box item pt={2} display="flex" justifyContent="center">
               {loading ? (
                 <CircularProgress color="secondary" />
@@ -157,7 +150,7 @@ export const UserLogin = () => {
           </Grid>
 
           <Divider light={true} />
-          <Grid>
+          <Grid item>
             <Box
               item
               pt={2}
