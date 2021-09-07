@@ -11,13 +11,13 @@ import {
 } from "@material-ui/core";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import CloseIcon from "@material-ui/icons/Close";
+import { Visibility, VisibilityOff } from "@material-ui/icons";
 
 //validation schema
 import {
   validateName,
   validatePassword,
 } from "../../../configs/systemFromValidation";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
 
 export const SystemData = (props) => {
   const nameBox = useRef();
@@ -25,34 +25,57 @@ export const SystemData = (props) => {
   useEffect(() => {}, []);
 
   //states
-  const [name, setName] = useState("");
-  const [password, setpassWord] = useState("");
+  const [name, setName] = useState(null);
+  const [password, setpassWord] = useState(null);
   const [type, setType] = useState(null);
 
   const [showPassword, setshowPassword] = useState(false);
 
   //error states
   const [nameError, setNameError] = useState(null);
-  const [passwordError, setpassWordError] = useState(null);
+  const [passwordError, setPassWordError] = useState(null);
   const [typeError, setTypeError] = useState(null);
 
   //handele error
-  const handleError = (e) => {
-    e.preventDefault();
-    const name = e.target.name;
+  const handleError = (text) => {
     let response;
-    switch (name) {
+    switch (text) {
       case "name":
-        response = validateName(e.target.value);
+        response = validateName(name);
         response.state === false
           ? setNameError(response.text)
           : setNameError(null);
       case "password":
-        response = validatePassword(e.target.value);
-        console.log("pass");
+        response = validatePassword(password);
         response.state === false
-          ? setpassWordError(response.text)
-          : setpassWordError(null);
+          ? setPassWordError(response.text)
+          : setPassWordError(null);
+      case "type":
+        type === null ? setTypeError("Requried") : setTypeError(null);
+    }
+  };
+
+  //handle submit
+  const handleSubmit = () => {
+    name === null || nameError
+      ? setNameError(nameError ? nameError : "Required")
+      : setNameError(null);
+    password === null || passwordError
+      ? setPassWordError(passwordError ? setPassWordError : "Required")
+      : setPassWordError(null);
+    type === null || typeError
+      ? setTypeError(typeError ? typeError : "Required")
+      : setTypeError(null);
+
+    if (
+      name &&
+      password &&
+      type &&
+      !nameError &&
+      !passwordError &&
+      !typeError
+    ) {
+      alert("submited");
     }
   };
 
@@ -82,8 +105,8 @@ export const SystemData = (props) => {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              onBlur={(e) => handleError(e)}
-              onKeyUp={(e) => handleError(e)}
+              onBlur={() => handleError("name")}
+              onKeyUp={() => handleError("name")}
               fullWidth
               label="System Name"
               error={nameError}
@@ -101,8 +124,8 @@ export const SystemData = (props) => {
               type={showPassword ? "text" : "password"}
               value={password}
               onChange={(e) => setpassWord(e.target.value)}
-              onBlur={(e) => handleError(e)}
-              onKeyUp={(e) => handleError(e)}
+              onBlur={() => handleError("password")}
+              onKeyUp={() => handleError("password")}
               fullWidth
               label="Password"
               error={passwordError}
@@ -119,16 +142,22 @@ export const SystemData = (props) => {
             />
           </Box>
         </Grid>
+
+        {/* //system type */}
         <Grid item>
           <Box ml={3} mr={3} display="flex" justifyContent="center" mt={3}>
             <InputLabel id="demo-simple-select-label">Type</InputLabel>
             <Select
               name="type"
               value={type}
-              onChange={(e) => setType(e.target.value)}
+              onChange={(e) => {
+                setType(e.target.value);
+                handleError(e);
+              }}
               labelId="demo-simple-select-label"
               id="demo-simple-select-label"
               error={typeError}
+              helperText={typeError}
             >
               <MenuItem value="Grocery">Grocery</MenuItem>
               <MenuItem value="Hotel / Restuarnat">Hotel / Restuarnat</MenuItem>
@@ -138,11 +167,13 @@ export const SystemData = (props) => {
             </Select>
           </Box>
         </Grid>
+
+        {/* //next button */}
         <Grid item>
           <Box display="flex" justifyContent="center" mt={5}>
             <IconButton
               style={{ border: "1px solid black" }}
-              onClick={props.changePage}
+              onClick={() => handleSubmit()}
             >
               <NavigateNextIcon color="primary" />
             </IconButton>

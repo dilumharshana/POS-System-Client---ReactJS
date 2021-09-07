@@ -1,9 +1,11 @@
 //validate system name
 export const validateName = (text) => {
-  if (text.length < 2)
-    return { state: false, text: "Name must contain atlest two characters" };
+  if (text && text.length === 0) return { state: false, text: "Required" };
 
-  if (text.length > 20)
+  if (text && text.length < 2)
+    return { state: false, text: "Name must contain atleast two characters" };
+
+  if (text && text.length > 20)
     return { state: false, text: "Name must be less than 20 characters" };
 
   return { state: true };
@@ -11,37 +13,43 @@ export const validateName = (text) => {
 
 //validate system password
 export const validatePassword = (text) => {
-  if (text.length < 6)
+  if (text && text.length === 0)
     return {
       state: false,
-      text: "Password must contain atlest five characters",
+      text: "Required",
     };
 
-  if (text.length > 20)
+  if (text && text.length > 20)
     return { state: false, text: "Password must be less than 20 characters" };
 
-  if (!/(?=.*?[a-zA-Z])/.test(text))
+  if (text && !/(?=.*?[a-z])/.test(text))
     return {
       state: false,
-      text: "Password must contain atlest one lowercase character",
+      text: "Password must contain atleast one lowercase character",
     };
 
-  if (!/(?=.*?[A-Z])/.test(text))
+  if (text && !/(?=.*?[A-Z])/.test(text))
     return {
       state: false,
-      text: "Password must contain atlest one uppercase character",
+      text: "Password must contain atleast one uppercase character",
     };
 
-  if (!/(?=.*\d)/.test(text))
+  if (text && !/(?=.*\d)/.test(text))
     return {
       state: false,
-      text: "Password must contain atlest one number",
+      text: "Password must contain atleast one number",
     };
 
-  if (!/(?=.*?[!@#$%^&*()+/_=;,.<>{[\-`'"]}])/.test)
+  if (text && !/[?=.*?[#?!@$%^&*-/_(){}.=\:;|<>`]/.test(text))
     return {
       state: false,
-      text: "Password must contain atlest one number",
+      text: "Password must contain atleast one special charater",
+    };
+
+  if (text && text.length < 6)
+    return {
+      state: false,
+      text: "Password must contain atleast six characters",
     };
 
   return { state: true };
