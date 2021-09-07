@@ -4,16 +4,17 @@ export const styles = (deviceWidth) => ({
     top: "0",
     right: "0",
     bottom: "0",
-    position: "fixed",
-    backgroundColor: "rgba(0, 0, 0, 0.2)",
+    position: deviceWidth < 1280 ? null : "fixed",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
   },
 
   popupBox: {
     position: "absolute",
     width: "auto",
     height: "auto",
-    top: deviceWidth < 1280 ? "58%" : "50%",
+    top: deviceWidth < 1280 ? "55%" : "55%",
     left: "50%",
     transform: "translate(-50%, -50%)",
+    overFlow: "auto",
   },
 });

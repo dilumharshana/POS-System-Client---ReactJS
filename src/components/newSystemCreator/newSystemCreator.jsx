@@ -20,9 +20,15 @@ export const NewSystemCreator = () => {
       <Paper style={styles.root}>
         <Box p={3}>
           {page === 1 ? (
-            <SystemData changePage={() => setPage(2)} />
+            <SystemData
+              changePage={() => setPage(2)}
+              deviceWidth={deviceWidth}
+            />
           ) : (
-            <SystemInfo changePage={() => setPage(1)} />
+            <SystemInfo
+              changePage={() => setPage(1)}
+              deviceWidth={deviceWidth}
+            />
           )}
         </Box>
       </Paper>
