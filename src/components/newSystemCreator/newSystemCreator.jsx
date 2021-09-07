@@ -9,7 +9,7 @@ import { stylesSet } from "./newSystemCreatorStyles.js";
 import { SystemData } from "./systemData/systemData";
 import { SystemInfo } from "./systemInfo/systemInfo";
 
-export const NewSystemCreator = () => {
+export const NewSystemCreator = (props) => {
   const [page, setPage] = useState(1);
 
   let deviceWidth = useSelector((store) => store.deviceWidth);
@@ -23,11 +23,13 @@ export const NewSystemCreator = () => {
             <SystemData
               changePage={() => setPage(2)}
               deviceWidth={deviceWidth}
+              close={props.close}
             />
           ) : (
             <SystemInfo
               changePage={() => setPage(1)}
               deviceWidth={deviceWidth}
+              close={props.close}
             />
           )}
         </Box>

@@ -33,7 +33,7 @@ export const SystemInfo = (props) => {
 
       <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
         <Box display="flex" justifyContent="flex-end">
-          <IconButton onClick={props.changePage}>
+          <IconButton onClick={props.close}>
             <CloseIcon color="primary" />
           </IconButton>
         </Box>
