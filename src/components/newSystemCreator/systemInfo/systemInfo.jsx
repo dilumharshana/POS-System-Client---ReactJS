@@ -12,9 +12,6 @@ import {
   Typography,
 } from "@material-ui/core";
 
-//styles
-import { styles } from "./systemInfoStyles";
-
 //icons
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import ShowChartIcon from "@material-ui/icons/ShowChart";
@@ -25,7 +22,13 @@ import CloseIcon from "@material-ui/icons/Close";
 import TransferWithinAStationIcon from "@material-ui/icons/TransferWithinAStation";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
-export const SystemInfo = (props) => {
+//styles
+import { styles } from "./systemInfoStyles";
+
+//creator function
+import { createSystem } from "./createSystem";
+
+export const SystemInfo = ({ name, password, type, ...props }) => {
   const classes = styles(props);
   return (
     <Grid container>
@@ -102,7 +105,11 @@ export const SystemInfo = (props) => {
             </List>
           </Box>
           <Box mt={2} mb={3}>
-            <Button variant="contained" color="primary">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => createSystem({ name, password, type })}
+            >
               Create Free
             </Button>
           </Box>

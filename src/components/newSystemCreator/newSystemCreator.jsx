@@ -12,6 +12,11 @@ import { SystemInfo } from "./systemInfo/systemInfo";
 export const NewSystemCreator = (props) => {
   const [page, setPage] = useState(1);
 
+  // system data states
+  const [name, setName] = useState(null);
+  const [password, setpassWord] = useState(null);
+  const [type, setType] = useState("Grocery");
+
   let deviceWidth = useSelector((store) => store.deviceWidth);
   const styles = stylesSet(deviceWidth);
 
@@ -24,10 +29,20 @@ export const NewSystemCreator = (props) => {
               changePage={() => setPage(2)}
               deviceWidth={deviceWidth}
               close={props.close}
+              name={name}
+              password={password}
+              type={type}
+              setName={(value) => setName(value)}
+              setpassWord={(value) => setpassWord(value)}
+              setType={(value) => setType(value)}
             />
           ) : (
             <SystemInfo
               changePage={() => setPage(1)}
+              close={props.close}
+              name={name}
+              password={password}
+              type={type}
               deviceWidth={deviceWidth}
               close={props.close}
             />

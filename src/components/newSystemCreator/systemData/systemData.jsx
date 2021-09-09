@@ -1,10 +1,10 @@
 import { useState, useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
 import {
   Grid,
   Box,
   TextField,
   Select,
-  MenuItem,
   InputLabel,
   IconButton,
   InputAdornment,
@@ -12,6 +12,8 @@ import {
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import CloseIcon from "@material-ui/icons/Close";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import ErrorIcon from "@material-ui/icons/Error";
 
 //validation schema
 import {
@@ -20,14 +22,11 @@ import {
 } from "../../../configs/systemFromValidation";
 
 export const SystemData = (props) => {
-  const nameBox = useRef();
+  const nameInput = useRef(null);
+  const passwordInput = useRef(null);
+  const typeInput = useRef(null);
 
-  useEffect(() => {}, []);
-
-  //states
-  const [name, setName] = useState(null);
-  const [password, setpassWord] = useState(null);
-  const [type, setType] = useState(null);
+  const availableSystems = useSelector((store) => store.currentUser.possystems);
 
   const [showPassword, setshowPassword] = useState(false);
 
@@ -37,51 +36,50 @@ export const SystemData = (props) => {
   const [typeError, setTypeError] = useState(null);
 
   //handele error
-  const handleError = (text) => {
+  const handleError = (ref) => {
     let response;
-    switch (text) {
+    switch (ref.current.name) {
       case "name":
-        response = validateName(name);
+        response = validateName(nameInput.current.value, availableSystems);
         response.state === false
           ? setNameError(response.text)
           : setNameError(null);
+        break;
       case "password":
-        response = validatePassword(password);
+        response = validatePassword(passwordInput.current.value);
         response.state === false
           ? setPassWordError(response.text)
           : setPassWordError(null);
+        break;
       case "type":
-        type === null ? setTypeError("Requried") : setTypeError(null);
+        props.type === null ? setTypeError("Requried") : setTypeError(null);
+        break;
     }
   };
 
   //handle submit
   const handleSubmit = () => {
-    name === null || nameError
-      ? setNameError(nameError ? nameError : "Required")
-      : setNameError(null);
-    password === null || passwordError
-      ? setPassWordError(passwordError ? setPassWordError : "Required")
-      : setPassWordError(null);
-    type === null || typeError
-      ? setTypeError(typeError ? typeError : "Required")
-      : setTypeError(null);
+    handleError(nameInput);
+    handleError(passwordInput);
+    handleError(typeInput);
 
     if (
-      name &&
-      password &&
-      type &&
+      props.name &&
+      props.password &&
+      props.type &&
       !nameError &&
       !passwordError &&
       !typeError
     ) {
-      alert("submited");
+      props.changePage();
     }
   };
 
   return (
     <form action="">
       <Grid container direction="column">
+        {/* //close button */}
+
         <Grid>
           <Box display="flex" justifyContent="flex-end">
             <IconButton onClick={props.close}>
@@ -89,6 +87,8 @@ export const SystemData = (props) => {
             </IconButton>
           </Box>
         </Grid>
+
+        {/* //heading */}
         <Grid item>
           <Box display="flex" justifyContent="center" mt={3}>
             <h3>Create New System</h3>
@@ -100,17 +100,34 @@ export const SystemData = (props) => {
         <Grid item>
           <Box ml={3} mr={3} mt={4}>
             <TextField
-              inputRef={nameBox}
+              inputRef={nameInput}
               name="name"
               type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              onBlur={() => handleError("name")}
-              onKeyUp={() => handleError("name")}
+              value={props.name}
+              onChange={(e) => props.setName(e.target.value)}
+              onBlur={() => handleError(nameInput)}
+              onKeyUp={(e) => handleError(nameInput)}
               fullWidth
               label="System Name"
               error={nameError}
               helperText={nameError}
+              InputProps={
+                props.name
+                  ? {
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Box mr={2}>
+                            {nameError || props.name.length < 2 ? (
+                              <ErrorIcon style={{ color: "red" }} />
+                            ) : (
+                              <CheckCircleIcon style={{ color: "#3bb802" }} />
+                            )}
+                          </Box>
+                        </InputAdornment>
+                      ),
+                    }
+                  : null
+              }
             />
           </Box>
         </Grid>
@@ -121,11 +138,12 @@ export const SystemData = (props) => {
           <Box ml={3} mr={3} mt={3}>
             <TextField
               name="password"
+              inputRef={passwordInput}
               type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={(e) => setpassWord(e.target.value)}
-              onBlur={() => handleError("password")}
-              onKeyUp={() => handleError("password")}
+              value={props.password}
+              onChange={(e) => props.setpassWord(e.target.value)}
+              onBlur={() => handleError(passwordInput)}
+              onKeyUp={() => handleError(passwordInput)}
               fullWidth
               label="Password"
               error={passwordError}
@@ -144,26 +162,38 @@ export const SystemData = (props) => {
         </Grid>
 
         {/* //system type */}
+
         <Grid item>
-          <Box ml={3} mr={3} display="flex" justifyContent="center" mt={3}>
+          <Box
+            ml={3}
+            mr={3}
+            display="flex"
+            justifyContent="center"
+            mt={3}
+            id="hh"
+          >
             <InputLabel id="demo-simple-select-label">Type</InputLabel>
             <Select
-              name="type"
-              value={type}
-              onChange={(e) => {
-                setType(e.target.value);
-                handleError(e);
+              native
+              inputProps={{
+                name: "type",
+                inputRef: typeInput,
               }}
-              labelId="demo-simple-select-label"
-              id="demo-simple-select-label"
+              value={props.type}
+              onChange={(e) => {
+                props.setType(e.target.value);
+                handleError(typeInput);
+              }}
+              onClose={() => handleError(typeInput)}
+              style={{ minWidth: "200px" }}
               error={typeError}
-              helperText={typeError}
+              value={props.type}
             >
-              <MenuItem value="Grocery">Grocery</MenuItem>
-              <MenuItem value="Hotel / Restuarnat">Hotel / Restuarnat</MenuItem>
-              <MenuItem value="Phamacy">Phamacy</MenuItem>
-              <MenuItem value="Textile">Textile</MenuItem>
-              <MenuItem value="Super Market"></MenuItem>
+              <option value="Grocery">Grocery</option>
+              <option value="Hotel / Restuarnat">Hotel / Restuarnat</option>
+              <option value="Phamacy">Phamacy</option>
+              <option value="Textile">Textile</option>
+              <option value="Super Market">Super Market</option>
             </Select>
           </Box>
         </Grid>

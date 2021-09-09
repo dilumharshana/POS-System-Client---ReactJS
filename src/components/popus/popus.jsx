@@ -17,12 +17,8 @@ export const Popus = (props) => {
 
   const wrapperDiv = useRef();
 
-  const closePopup = (e) => {
-    if (wrapperDiv.current === e.target) return props.close();
-  };
-
   return props.open === true ? (
-    <div ref={wrapperDiv} style={style.popupWrapper} onClick={closePopup}>
+    <div ref={wrapperDiv} style={style.popupWrapper}>
       <div style={style.popupBox}>
         <div data-aos={props.animation}> {props.children}</div>
       </div>

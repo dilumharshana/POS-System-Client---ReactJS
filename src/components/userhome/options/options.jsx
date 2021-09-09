@@ -23,7 +23,7 @@ export const Options = () => {
         >
           <AddCircleIcon fontSize="large" />
         </Button>
-        <Popus open={open} close={() => setOpen(false)} animation="fade-down">
+        <Popus open={open} animation="fade-down">
           <NewSystemCreator close={() => setOpen(false)} />
         </Popus>
       </Grid>
