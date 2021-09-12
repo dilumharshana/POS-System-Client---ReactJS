@@ -41,7 +41,7 @@ export const UserRegister = () => {
   const registerUser = async () => {
     try {
       const data = await axios.post(
-        "http://localhost:2000/api/users/register",
+        "http://localhost:2001/api/users/register",
         formik.values
       );
     } catch (error) {

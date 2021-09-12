@@ -35,7 +35,9 @@ export const UserHome = () => {
 
   const [tabValue, setTabValue] = useState(0);
 
-  useEffect(() => loaduser(), [deviceWidth]);
+  useEffect(() => {
+    loaduser();
+  }, [deviceWidth]);
   console.log(deviceWidth);
 
   window.onresize = () => setNewDeviceWidth();

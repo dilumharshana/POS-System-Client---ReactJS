@@ -18,6 +18,11 @@ export const NewSystemCreator = (props) => {
   const [type, setType] = useState("Grocery");
 
   let deviceWidth = useSelector((store) => store.deviceWidth);
+
+  const {
+    currentUser: { _id: owner },
+  } = useSelector((store) => store);
+
   const styles = stylesSet(deviceWidth);
 
   return (
@@ -41,6 +46,7 @@ export const NewSystemCreator = (props) => {
               changePage={() => setPage(1)}
               close={props.close}
               name={name}
+              owner={owner}
               password={password}
               type={type}
               deviceWidth={deviceWidth}

@@ -4,7 +4,7 @@ import { LOAD_USER } from "../../types";
 export const setUserData = () => async (dispatch) => {
   try {
     const user = await axios.get(
-      `http://localhost:2000/api/users/${localStorage.getItem("userInfo")}`
+      `http://localhost:2001/api/users/${localStorage.getItem("userInfo")}`
     );
     return dispatch({
       type: LOAD_USER,

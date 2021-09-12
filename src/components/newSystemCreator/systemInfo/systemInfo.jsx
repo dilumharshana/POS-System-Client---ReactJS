@@ -28,8 +28,14 @@ import { styles } from "./systemInfoStyles";
 //creator function
 import { createSystem } from "./createSystem";
 
-export const SystemInfo = ({ name, password, type, ...props }) => {
+export const SystemInfo = ({ name, owner, password, type, ...props }) => {
   const classes = styles(props);
+
+  //handl create function
+  const handleCreate = () => {
+    const response = createSystem({ name, owner, password, type });
+  };
+
   return (
     <Grid container>
       {/* //close buton */}
@@ -108,7 +114,7 @@ export const SystemInfo = ({ name, password, type, ...props }) => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() => createSystem({ name, password, type })}
+              onClick={() => handleCreate()}
             >
               Create Free
             </Button>
