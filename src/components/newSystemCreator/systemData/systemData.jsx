@@ -26,7 +26,12 @@ export const SystemData = (props) => {
   const passwordInput = useRef(null);
   const typeInput = useRef(null);
 
-  const availableSystems = useSelector((store) => store.currentUser.possystems);
+  const systemSet = useSelector((store) => store.currentUser.possystems);
+
+  const availableSystems =
+    systemSet && systemSet.length > 0
+      ? systemSet.map((system) => system.name)
+      : [];
 
   const [showPassword, setshowPassword] = useState(false);
 

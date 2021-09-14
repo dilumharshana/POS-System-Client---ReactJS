@@ -1,4 +1,7 @@
 import React from "react";
+import { useState } from "react";
+import { bindActionCreators } from "redux";
+import { useDispatch } from "react-redux";
 import {
   Grid,
   Box,
@@ -12,6 +15,9 @@ import {
   Typography,
 } from "@material-ui/core";
 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 //icons
 import NavigateBeforeIcon from "@material-ui/icons/NavigateBefore";
 import ShowChartIcon from "@material-ui/icons/ShowChart";
@@ -22,18 +28,35 @@ import CloseIcon from "@material-ui/icons/Close";
 import TransferWithinAStationIcon from "@material-ui/icons/TransferWithinAStation";
 import LinearProgress from "@material-ui/core/LinearProgress";
 
+//actions
+import { setUserData } from "../../../state/actions/actionLoadUser/setUserData";
+
 //styles
 import { styles } from "./systemInfoStyles";
 
 //creator function
 import { createSystem } from "./createSystem";
 
+//configs
+toast.configure();
+
 export const SystemInfo = ({ name, owner, password, type, ...props }) => {
+  const [Loading, setLoading] = useState(false);
   const classes = styles(props);
 
+  const loadUser = bindActionCreators(setUserData, useDispatch());
+
   //handl create function
-  const handleCreate = () => {
-    const response = createSystem({ name, owner, password, type });
+  const handleCreate = async () => {
+    try {
+      setLoading(true);
+      const response = await createSystem({ name, owner, password, type });
+      loadUser();
+      toast.success(response.data, { position: toast.POSITION.BOTTOM_LEFT });
+      props.close();
+    } catch (error) {
+      toast.error("Hmm... Something went wring");
+    }
   };
 
   return (
@@ -110,15 +133,21 @@ export const SystemInfo = ({ name, owner, password, type, ...props }) => {
               </ListItem>
             </List>
           </Box>
-          <Box mt={2} mb={3}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => handleCreate()}
-            >
-              Create Free
-            </Button>
-          </Box>
+          {Loading ? (
+            <Box mt={3}>
+              <LinearProgress style={classes.loading} />
+            </Box>
+          ) : (
+            <Box mt={2} mb={3}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => handleCreate()}
+              >
+                Create Free
+              </Button>
+            </Box>
+          )}
         </Box>
       </Grid>
 

@@ -9,4 +9,6 @@ export const styles = (props) => ({
   btnTryFree: { backgroundColor: "#ffb005" },
 
   btnBackButton: { border: "1px solid black" },
+
+  loading: { width: 100, color: "blue" },
 });

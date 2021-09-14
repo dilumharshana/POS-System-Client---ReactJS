@@ -26,6 +26,7 @@ import { setDeviceWidth } from "../../state/actions/actionDeviceWidth/Action-dev
 
 //styles
 import { styles } from "./userhomestyles";
+import "./userHomeStyles.css";
 
 export const UserHome = () => {
   const loaduser = bindActionCreators(setUserData, useDispatch());
@@ -71,7 +72,7 @@ export const UserHome = () => {
         <Grid lg={3} xl={3}>
           <Profile />
         </Grid>
-        <Grid lg={6} xl={6}>
+        <Grid lg={6} xl={6} className={classes.root}>
           <PosSystems />
         </Grid>
         <Grid lg={3} xl={3}>
