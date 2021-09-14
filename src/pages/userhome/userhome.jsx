@@ -39,7 +39,6 @@ export const UserHome = () => {
   useEffect(() => {
     loaduser();
   }, [deviceWidth]);
-  console.log(deviceWidth);
 
   window.onresize = () => setNewDeviceWidth();
 
@@ -73,10 +72,10 @@ export const UserHome = () => {
           <Profile />
         </Grid>
         <Grid lg={6} xl={6} className={classes.root}>
-          <PosSystems />
+          <PosSystems deviceWidth={deviceWidth} />
         </Grid>
         <Grid lg={3} xl={3}>
-          <Options />
+          <Options deviceWidth={deviceWidth} />
         </Grid>
       </Grid>
     </>
@@ -115,10 +114,10 @@ export const UserHome = () => {
         <Toolbar />
         <Toolbar />
         <TabPanel value={tabValue} index={0}>
-          <PosSystems />
+          <PosSystems deviceWidth={deviceWidth} />
         </TabPanel>
         <TabPanel value={tabValue} index={1}>
-          <Options />
+          <Options deviceWidth={deviceWidth} />
         </TabPanel>
         <TabPanel value={tabValue} index={2}>
           <Profile />

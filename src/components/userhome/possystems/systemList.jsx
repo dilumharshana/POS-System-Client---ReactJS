@@ -16,7 +16,6 @@ import {
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { toast } from "react-toastify";
-import AOS from "aos";
 import axios from "axios";
 
 //actions
@@ -27,20 +26,13 @@ import grocery from "../../../assests/systems/grocery.jpg";
 
 //styles
 import { styles } from "./possystemsStyles";
-import "react-toastify/dist/ReactToastify.css";
 
 export const SystemList = (props) => {
-  useEffect(() =>
-    AOS.init({
-      duration: 1000,
-    })
-  );
   const [anchorEl, setAnchorEl] = useState(false);
   const loadUser = bindActionCreators(setUserData, useDispatch());
 
   //style config
   const classes = styles()();
-  toast.configure();
 
   //delete btn pop over functions
   const handlePopDelete = (event) => setAnchorEl(event.currentTarget);
@@ -75,8 +67,8 @@ export const SystemList = (props) => {
 
   return (
     <div>
-      <Grid item data-aos="fade-left">
-        <Box display="flex" justifyContent="center" mt={3}>
+      <Grid item>
+        <Box display="flex" justifyContent="center" mb={4}>
           <Card className={classes.card} elevation={3}>
             <CardHeader
               action={
