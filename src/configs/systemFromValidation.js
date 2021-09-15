@@ -8,7 +8,11 @@ export const validateName = (text, availableSystems) => {
   if (text.length > 20)
     return { state: false, text: "Name must be less than 20 characters" };
 
-  if (availableSystems.includes(text))
+  if (
+    availableSystems.some(
+      (system) => system.toLowerCase() === text.toLowerCase()
+    )
+  )
     return {
       state: false,
       text: "This name is not available",

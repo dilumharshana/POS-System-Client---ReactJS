@@ -27,6 +27,7 @@ import AssessmentIcon from "@material-ui/icons/Assessment";
 import CloseIcon from "@material-ui/icons/Close";
 import TransferWithinAStationIcon from "@material-ui/icons/TransferWithinAStation";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import GroupAddIcon from "@material-ui/icons/GroupAdd";
 
 //actions
 import { setUserData } from "../../../state/actions/actionLoadUser/setUserData";
@@ -164,6 +165,14 @@ export const SystemInfo = ({ name, owner, password, type, ...props }) => {
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText primary="Manage your customers" />
+              </ListItem>
+              <ListItem>
+                <ListItemAvatar>
+                  <Avatar>
+                    <GroupAddIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary="Manage your suppliers" />
               </ListItem>
             </List>
           </Box>

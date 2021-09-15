@@ -14,13 +14,13 @@ export const Options = (props) => {
   const [open, setOpen] = useState(false);
   const classes = styles()();
 
-  console.log(props.deviceWidth);
-
   return (
     <Grid container alignItems="center" direction="column">
       {/* //seacrh */}
 
-      {props.deviceWidth < 1024 ? null : <SystemSearch />}
+      {props.deviceWidth < 1024 ? null : (
+        <SystemSearch setSearch={props.setSearch} />
+      )}
 
       {/* //add system btn */}
       <Grid xs={12} sm={12} md={12} lg={12} xl={12}>

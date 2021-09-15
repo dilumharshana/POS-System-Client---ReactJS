@@ -32,15 +32,18 @@ export const UserHome = () => {
   const loaduser = bindActionCreators(setUserData, useDispatch());
   const setNewDeviceWidth = bindActionCreators(setDeviceWidth, useDispatch());
 
-  const deviceWidth = useSelector((store) => store.deviceWidth);
-
   const [tabValue, setTabValue] = useState(0);
+  const [search, setSearch] = useState("");
+
+  const deviceWidth = useSelector((store) => store.deviceWidth);
 
   useEffect(() => {
     loaduser();
   }, [deviceWidth]);
 
   window.onresize = () => setNewDeviceWidth();
+
+  console.log(search);
 
   //styles
   const classes = styles()();
@@ -72,10 +75,13 @@ export const UserHome = () => {
           <Profile />
         </Grid>
         <Grid lg={6} xl={6} className={classes.root}>
-          <PosSystems deviceWidth={deviceWidth} />
+          <PosSystems deviceWidth={deviceWidth} search={search} />
         </Grid>
         <Grid lg={3} xl={3}>
-          <Options deviceWidth={deviceWidth} />
+          <Options
+            deviceWidth={deviceWidth}
+            setSearch={(value) => setSearch(value)}
+          />
         </Grid>
       </Grid>
     </>
@@ -114,10 +120,17 @@ export const UserHome = () => {
         <Toolbar />
         <Toolbar />
         <TabPanel value={tabValue} index={0}>
-          <PosSystems deviceWidth={deviceWidth} />
+          <PosSystems
+            deviceWidth={deviceWidth}
+            search={search}
+            setSearch={(value) => setSearch(value)}
+          />
         </TabPanel>
         <TabPanel value={tabValue} index={1}>
-          <Options deviceWidth={deviceWidth} />
+          <Options
+            deviceWidth={deviceWidth}
+            setSearch={(value) => setSearch(value)}
+          />
         </TabPanel>
         <TabPanel value={tabValue} index={2}>
           <Profile />
