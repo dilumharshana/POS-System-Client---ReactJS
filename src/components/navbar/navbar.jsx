@@ -95,12 +95,17 @@ export const NavBar = (props) => {
         </IconButton>
 
         <Box className={classes.mobileBrandName}>
-          <h1>EVONPOS</h1>
+          <h1>BIZLINER</h1>
         </Box>
 
         <IconButton aria-label="Login" className={classes.mobileLoginIcon}>
-          {/* //brand name */}
-          <AccountCircleSharpIcon fontSize="large" style={{ color: "white" }} />
+          {/* //login icon */}
+          <Link to="/login" exact>
+            <AccountCircleSharpIcon
+              fontSize="large"
+              style={{ color: "white" }}
+            />
+          </Link>
         </IconButton>
       </Toolbar>
     </AppBar>

@@ -53,7 +53,10 @@ export const SystemInfo = ({ name, owner, password, type, ...props }) => {
       setLoading(true);
       const response = await createSystem({ name, owner, password, type });
       loadUser();
-      toast.success(response.data, { position: toast.POSITION.BOTTOM_LEFT });
+      toast.success(response.data, {
+        position: toast.POSITION.BOTTOM_LEFT,
+        theme: "colored",
+      });
       props.close();
     } catch (error) {
       toast.error("Hmm... Something went wring");

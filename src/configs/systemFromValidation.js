@@ -5,8 +5,8 @@ export const validateName = (text, availableSystems) => {
   if (text.length < 2)
     return { state: false, text: "Name must contain atleast two characters" };
 
-  if (text.length > 20)
-    return { state: false, text: "Name must be less than 20 characters" };
+  if (text.length > 30)
+    return { state: false, text: "Name must be less than 30 characters" };
 
   if (
     availableSystems.some(

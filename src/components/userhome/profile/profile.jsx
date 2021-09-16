@@ -1,4 +1,4 @@
-import { Grid, Box, Avatar, Typography } from "@material-ui/core";
+import { Grid, Box, Avatar, Button, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 
 //assets
@@ -8,7 +8,7 @@ import profilepic from "../../../assests/profile/profilepic.jpg";
 import { styles } from "./profileStyles";
 import { StyledBadge } from "./profileStyles";
 
-export const Profile = () => {
+export const Profile = (props) => {
   const currentUser = useSelector((store) => store.currentUser);
 
   const classes = styles()();
@@ -41,6 +41,21 @@ export const Profile = () => {
       <Grid item>
         <Box className={classes.email}>{currentUser.email}</Box>
       </Grid>
+      {props.mobileView === true ? (
+        <Box mt={10}>
+          <Button
+            className={classes.btnLogOut}
+            variant="outlined"
+            size="normal"
+            onClick={() => {
+              localStorage.removeItem("userInfo");
+              props.history.push("/login");
+            }}
+          >
+            Sign Out
+          </Button>
+        </Box>
+      ) : null}
     </Grid>
   );
 };

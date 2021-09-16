@@ -64,7 +64,7 @@ export const UserHome = () => {
               history.push("/login");
             }}
           >
-            Log out
+            Sign Out
           </Button>
         </Toolbar>
       </AppBar>
@@ -133,7 +133,7 @@ export const UserHome = () => {
           />
         </TabPanel>
         <TabPanel value={tabValue} index={2}>
-          <Profile />
+          <Profile mobileView={true} history={history} />
         </TabPanel>
       </>
     );

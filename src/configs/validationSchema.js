@@ -14,7 +14,7 @@ export const loginFormHandler = (onSubmit) => () => {
       email: "",
       password: "",
     },
-    validationSchema: validationSchema,
+    validationSchema,
     onSubmit,
   });
 };

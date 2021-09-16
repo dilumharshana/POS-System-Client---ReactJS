@@ -36,7 +36,7 @@ export const Banner = () => {
         className={clsx(classes.bannerContent, classes.brandName)}
         pt={10}
       >
-        <h1 className="brandName">EVONPOS</h1>
+        <h1 className="brandName">BIZLINER</h1>
       </Grid>
 
       {/* description */}
@@ -77,9 +77,11 @@ export const Banner = () => {
       </Grid>
 
       <Grid item className={classes.mobileBannerContainer}>
-        <Button className={classes.mobileUseFreeBtn} variant="contained">
-          USE FREE
-        </Button>
+        <Link to="/register">
+          <Button className={classes.mobileUseFreeBtn} variant="contained">
+            USE FREE
+          </Button>
+        </Link>
       </Grid>
     </Grid>
   );

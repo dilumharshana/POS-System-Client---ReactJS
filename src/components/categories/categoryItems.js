@@ -1,7 +1,7 @@
 //media
 import supermarket from "../../assests/categories/supermarket.jpg";
 import texttile from "../../assests/categories/texttile.jpg";
-import restaurant from "../../assests/categories/restaurant.jpg";
+import spareParts from "../../assests/categories/spareParts.jpg";
 import groceries from "../../assests/categories/groceries.jpg";
 import pharmacy from "../../assests/categories/pharmacy.jpg";
 
@@ -22,8 +22,8 @@ export const cateos = [
   },
   {
     id: 2,
-    name: "Restaurants",
-    img: restaurant,
+    name: "Spare Parts",
+    img: spareParts,
     description:
       "Loyal customers are the key to success, and technology will help to feed that loyalty and keep your customers hungry to return",
   },

@@ -9,6 +9,7 @@ import {
   Box,
   CardHeader,
   IconButton,
+  Typography,
 } from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -33,7 +34,7 @@ export const SystemList = (props) => {
   return (
     <>
       <Grid item>
-        <Box display="flex" justifyContent="center" mb={3}>
+        <Box display="flex" justifyContent="center" mb={4}>
           <Card className={classes.card} elevation={3}>
             <CardHeader
               action={
@@ -46,7 +47,11 @@ export const SystemList = (props) => {
             />
             <CardActionArea>
               <CardMedia image={grocery} className={classes.image} />
-              <CardContent>{systemName}</CardContent>
+              <CardContent className={classes.cardContent}>
+                <Typography className={classes.shopName}>
+                  {systemName}
+                </Typography>
+              </CardContent>
             </CardActionArea>
           </Card>
         </Box>

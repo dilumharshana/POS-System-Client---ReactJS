@@ -4,7 +4,8 @@ export const styles = () =>
   makeStyles({
     card: {
       width: "70%",
-      border: "1px solid #c7c7c7",
+
+      border: "1px solid #8c8c8c",
     },
     image: {
       height: 100,
@@ -14,5 +15,15 @@ export const styles = () =>
     },
     searchBox: {
       width: "100%",
+    },
+    cardContent: {
+      background: "#f6f5fc",
+    },
+    shopName: {
+      textAlign: "center",
+      color: "#5b5a61",
+      fontWeight: "bold",
+      fontFamily: "arial ,sans-serif",
+      paddingTop: "8px",
     },
   });
