@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Grid, IconButton } from "@material-ui/core";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
-
+import AutoDeleteIcon from "@mui/icons-material/AutoDelete";
 //components
 import { Popus } from "../../popus/popus";
 import { NewSystemCreator } from "../../newSystemCreator/newSystemCreator";
@@ -34,6 +34,9 @@ export const Options = (props) => {
         <Popus open={open} animation="fade-down">
           <NewSystemCreator close={() => setOpen(false)} />
         </Popus>
+      </Grid>
+      <Grid>
+        <AutoDeleteIcon />
       </Grid>
     </Grid>
   );

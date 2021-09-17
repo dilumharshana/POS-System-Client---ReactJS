@@ -1,7 +1,7 @@
 import { makeStyles, withStyles } from "@material-ui/core";
 import Badge from "@material-ui/core/Badge";
 
-export const styles = () =>
+export const styles = (currentUser) =>
   makeStyles((theme) => ({
     profilePic: {
       width: theme.spacing(15),
@@ -14,6 +14,14 @@ export const styles = () =>
     },
     email: {
       color: "#575555",
+    },
+    isPremiumBox: {
+      border: `1px solid  ${
+        currentUser.isPremium === true ? "#ffb005" : "#3003fc"
+      }`,
+    },
+    isPremiumbadge: {
+      color: currentUser.isPremium === true ? "#ffb005" : "#3003fc",
     },
   }));
 

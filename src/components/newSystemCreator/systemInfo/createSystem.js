@@ -2,14 +2,20 @@ import axios from "axios";
 import { config } from "../../../configs/jsonConfig";
 
 //system creator
-export const createSystem = async ({ name, owner, password, type }) => {
+export const createSystem = async ({
+  name,
+  owner,
+  password,
+  type,
+  isPremium,
+}) => {
   try {
     const newSystem = {
       name,
       owner,
       password,
       type,
-      isPremium: false,
+      isPremium,
       isActivated: true,
     };
 

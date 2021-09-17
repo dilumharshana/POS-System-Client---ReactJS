@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { bindActionCreators } from "redux";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   Grid,
   Box,
@@ -45,13 +45,20 @@ export const SystemInfo = ({ name, owner, password, type, ...props }) => {
   const [Loading, setLoading] = useState(false);
   const classes = styles(props);
 
+  const { isPremium } = useSelector((store) => store.currentUser);
   const loadUser = bindActionCreators(setUserData, useDispatch());
 
   //handl create function
   const handleCreate = async () => {
     try {
       setLoading(true);
-      const response = await createSystem({ name, owner, password, type });
+      const response = await createSystem({
+        name,
+        owner,
+        password,
+        type,
+        isPremium,
+      });
       loadUser();
       toast.success(response.data, {
         position: toast.POSITION.BOTTOM_LEFT,
@@ -91,13 +98,15 @@ export const SystemInfo = ({ name, owner, password, type, ...props }) => {
         md={12}
         lg={6}
         xl={6}
-        style={classes.divider}
         mb={2}
+        style={isPremium === true ? null : classes.divider}
       >
         <Box display="flex" alignItems="center" flexDirection="column">
           {/* //category topic */}
           <Box>
-            <Typography style={classes.categoryTopics}>Totaly Free</Typography>
+            <Typography style={classes.categoryTopics}>
+              {isPremium === true ? "Basic" : "Totaly Free"}
+            </Typography>
           </Box>
 
           {/* //feature list */}
@@ -137,7 +146,7 @@ export const SystemInfo = ({ name, owner, password, type, ...props }) => {
               </ListItem>
             </List>
           </Box>
-          {Loading ? (
+          {isPremium === true ? null : Loading ? (
             <Box mt={3}>
               <LinearProgress style={classes.loading} />
             </Box>
@@ -148,7 +157,7 @@ export const SystemInfo = ({ name, owner, password, type, ...props }) => {
                 color="primary"
                 onClick={() => handleCreate()}
               >
-                Create Free
+                {isPremium === true ? "Create Now" : "Create Free"}
               </Button>
             </Box>
           )}
@@ -180,9 +189,27 @@ export const SystemInfo = ({ name, owner, password, type, ...props }) => {
             </List>
           </Box>
           <Box>
-            <Button variant="contained" style={classes.btnTryFree}>
-              Try Premium
-            </Button>
+            {isPremium === true ? (
+              Loading ? (
+                <Box mt={3}>
+                  <LinearProgress style={classes.loading} />
+                </Box>
+              ) : (
+                <Box mt={2} mb={3}>
+                  <Button
+                    variant="contained"
+                    style={classes.btnPremium}
+                    onClick={() => handleCreate()}
+                  >
+                    {isPremium === true ? "Create Now" : "Create Free"}
+                  </Button>
+                </Box>
+              )
+            ) : (
+              <Button variant="contained" style={classes.btnPremium}>
+                Try Premium
+              </Button>
+            )}
           </Box>
         </Box>
       </Grid>

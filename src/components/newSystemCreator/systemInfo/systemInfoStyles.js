@@ -6,7 +6,7 @@ export const styles = (props) => ({
 
   categoryTopics: { textAlign: "center", color: "blue", fontWeight: "bold" },
 
-  btnTryFree: { backgroundColor: "#ffb005" },
+  btnPremium: { backgroundColor: "#ffb005" },
 
   btnBackButton: { border: "1px solid black" },
 
