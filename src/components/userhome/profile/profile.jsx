@@ -1,7 +1,18 @@
-import { Grid, Box, Avatar, Button, Typography } from "@material-ui/core";
+import {
+  Grid,
+  Box,
+  Avatar,
+  Button,
+  Typography,
+  Divider,
+} from "@material-ui/core";
 import { useSelector } from "react-redux";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import BeenhereIcon from "@material-ui/icons/Beenhere";
+import StoreIcon from "@mui/icons-material/Store";
+
+//components
+import { PremiumBtn } from "../../premeiumBtn/premiumBtn";
 
 //assets
 import profilepic from "../../../assests/profile/profilepic.jpg";
@@ -43,6 +54,18 @@ export const Profile = (props) => {
       <Grid item>
         <Box className={classes.email}>{currentUser.email}</Box>
       </Grid>
+      <Grid>
+        <Box display="flex" mt={2}>
+          <Box>
+            <StoreIcon />
+          </Box>
+          <Box className={classes.email} ml={2}>
+            owns {currentUser.possystems && currentUser.possystems.length}{" "}
+            active systems
+          </Box>
+        </Box>
+      </Grid>
+
       <Grid item>
         {
           <Box display="flex" mt={3} className={classes.isPremiumBox} p={1}>
@@ -61,6 +84,12 @@ export const Profile = (props) => {
           </Box>
         }
       </Grid>
+      {!currentUser.isPremium ? (
+        <Grid>
+          <PremiumBtn />
+        </Grid>
+      ) : null}
+
       {props.mobileView === true ? (
         <Box mt={10}>
           <Button
@@ -76,6 +105,8 @@ export const Profile = (props) => {
           </Button>
         </Box>
       ) : null}
+
+      <Grid></Grid>
     </Grid>
   );
 };

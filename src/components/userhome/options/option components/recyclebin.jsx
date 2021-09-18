@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import RestoreIcon from "@material-ui/icons/Restore";
-import DeleteSweepIcon from "@material-ui/icons/DeleteSweep";
+import AutoDeleteIcon from "@mui/icons-material/AutoDelete";
 
 //restore
 import { restore } from "./restore";
@@ -61,7 +61,7 @@ export const Recyclebin = () => {
             className={classes.recycleBin}
           >
             <Box mr={3} ml={2}>
-              <DeleteSweepIcon />
+              <AutoDeleteIcon />
             </Box>
             <Box>Recycled Systems</Box>
             <Box ml={3}>

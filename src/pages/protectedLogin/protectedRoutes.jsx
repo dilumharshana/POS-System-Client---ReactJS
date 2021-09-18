@@ -2,9 +2,18 @@ import { Route, Redirect } from "react-router-dom";
 
 //direct login to pos
 export const ProtectedLogin = ({ component, ...pathProps }) => {
+  //if user loged in to account
   const isAuthorized = localStorage.getItem("userInfo");
+
+  //if user loed in to pos systems too
+  const isPosSystemAuthorizes = localStorage.getItem("UserPosSystem");
+
   return isAuthorized ? (
-    <Route {...pathProps} component={component} />
+    isPosSystemAuthorizes ? (
+      <Redirect to="/pos" />
+    ) : (
+      <Route {...pathProps} component={component} />
+    )
   ) : (
     <Redirect to={"/login"} />
   );
@@ -37,5 +46,15 @@ export const PaymentsPage = ({ component, ...pathProps }) => {
     <Route {...pathProps} component={component} />
   ) : (
     <Redirect to="/login" />
+  );
+};
+
+//pos system
+export const LoadPosSystem = ({ component, ...pathProps }) => {
+  const isAuthorized = localStorage.getItem("UserPosSystem");
+  return isAuthorized ? (
+    <Route {...pathProps} component={component} />
+  ) : (
+    <Redirect to="/userHome" />
   );
 };

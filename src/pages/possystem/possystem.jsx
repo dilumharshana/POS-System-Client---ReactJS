@@ -12,7 +12,7 @@ export const PosSystem = () => {
       <Button
         variant="contained"
         onClick={() => {
-          localStorage.removeItem("userInfo");
+          localStorage.removeItem("UserPosSystem");
           history.push("/login");
         }}
       >

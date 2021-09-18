@@ -11,13 +11,15 @@ import { IndexPage } from "./pages/indexPage/indexPage";
 import { UserLogin } from "./components/userLogin/userLogin";
 import { UserRegister } from "./components/userRegister/userRegister";
 import { UserHome } from "./pages/userhome/userhome";
-import { NotFound } from "./pages/notFound/notFound";
 import { Payments } from "./pages/payments/payments";
+import { PosSystem } from "./pages/possystem/possystem";
+import { NotFound } from "./pages/notFound/notFound";
 import {
   ProtectedLogin,
   DirectLogin,
   Login,
   PaymentsPage,
+  LoadPosSystem,
 } from "./pages/protectedLogin/protectedRoutes";
 
 ReactDOM.render(
@@ -31,6 +33,7 @@ ReactDOM.render(
             <DirectLogin exact path="/" component={IndexPage} />
             <ProtectedLogin exact path="/userHome" component={UserHome} />
             <PaymentsPage exact path="/payments" component={Payments} />
+            <LoadPosSystem exact path="/pos" component={PosSystem} />
             <Route component={NotFound} />
           </Switch>
         </App>
