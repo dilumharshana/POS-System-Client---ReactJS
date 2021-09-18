@@ -12,10 +12,12 @@ import { UserLogin } from "./components/userLogin/userLogin";
 import { UserRegister } from "./components/userRegister/userRegister";
 import { UserHome } from "./pages/userhome/userhome";
 import { NotFound } from "./pages/notFound/notFound";
+import { Payments } from "./pages/payments/payments";
 import {
   ProtectedLogin,
   DirectLogin,
   Login,
+  PaymentsPage,
 } from "./pages/protectedLogin/protectedRoutes";
 
 ReactDOM.render(
@@ -27,7 +29,8 @@ ReactDOM.render(
             <Route exact path="/register" component={UserRegister} />
             <Login exact path="/login" component={UserLogin} />
             <DirectLogin exact path="/" component={IndexPage} />
-            <ProtectedLogin exact path="/pos" component={UserHome} />
+            <ProtectedLogin exact path="/userHome" component={UserHome} />
+            <PaymentsPage exact path="/payments" component={Payments} />
             <Route component={NotFound} />
           </Switch>
         </App>

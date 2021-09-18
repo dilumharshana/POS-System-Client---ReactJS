@@ -59,7 +59,7 @@ export const UserLogin = () => {
       );
 
       localStorage.setItem("userInfo", JSON.stringify(data));
-      history.push("/pos");
+      history.push("/userHome");
       setLoading(false);
     } catch (error) {
       userLoginState({ state: false, message: error.response.data });

@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 
-export const styles = () =>
+export const styles = (divHeight) =>
   makeStyles((theme) => ({
     btnAdd: {
       width: theme.spacing(30),
@@ -10,5 +10,20 @@ export const styles = () =>
         background: "#417cfa ",
         color: "#fff",
       },
+    },
+    recycleBin: {
+      width: "100%",
+      height: theme.spacing(7),
+      border: "1px solid #8c8c8c",
+    },
+    systemList: {
+      color: divHeight ? "green" : "",
+      height: divHeight ? "auto" : 0,
+      Transform: "2s",
+      overflow: "hidden",
+      transitionDuration: "1s",
+    },
+    restoreBtn: {
+      color: "#fff",
     },
   }));

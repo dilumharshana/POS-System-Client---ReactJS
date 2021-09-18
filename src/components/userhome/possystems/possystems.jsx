@@ -3,7 +3,7 @@ import { Grid } from "@material-ui/core";
 
 //components
 import { SystemList } from "./systemList";
-import { SystemSearch } from "../options/systemSearch";
+import { SystemSearch } from "../options/option components/systemSearch";
 
 export const PosSystems = (props) => {
   const {

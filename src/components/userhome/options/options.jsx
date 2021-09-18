@@ -1,43 +1,23 @@
-import { useState } from "react";
-import { Button, Grid, IconButton } from "@material-ui/core";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
-import AutoDeleteIcon from "@mui/icons-material/AutoDelete";
-//components
-import { Popus } from "../../popus/popus";
-import { NewSystemCreator } from "../../newSystemCreator/newSystemCreator";
-import { SystemSearch } from "./systemSearch";
+import { Grid } from "@material-ui/core";
 
-//styles
-import { styles } from "./optionStyles";
+//components
+import { SystemSearch } from "./option components/systemSearch";
+import { AddBtn } from "./option components/addBtn";
+import { Recyclebin } from "./option components/recyclebin";
 
 export const Options = (props) => {
-  const [open, setOpen] = useState(false);
-  const classes = styles()();
-
   return (
     <Grid container alignItems="center" direction="column">
-      {/* //seacrh */}
-
+      {/* //search */}
       {props.deviceWidth < 1024 ? null : (
         <SystemSearch setSearch={props.setSearch} />
       )}
 
       {/* //add system btn */}
-      <Grid xs={12} sm={12} md={12} lg={12} xl={12}>
-        <Button
-          className={classes.btnAdd}
-          variant="outlined"
-          onClick={() => setOpen(true)}
-        >
-          <AddCircleIcon fontSize="large" />
-        </Button>
-        <Popus open={open} animation="fade-down">
-          <NewSystemCreator close={() => setOpen(false)} />
-        </Popus>
-      </Grid>
-      <Grid>
-        <AutoDeleteIcon />
-      </Grid>
+      <AddBtn />
+
+      {/* //system recycle bin */}
+      <Recyclebin />
     </Grid>
   );
 };

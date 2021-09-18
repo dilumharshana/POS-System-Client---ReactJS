@@ -4,7 +4,6 @@ export const styles = () =>
   makeStyles({
     card: {
       width: "70%",
-
       border: "1px solid #8c8c8c",
     },
     image: {
@@ -19,11 +18,14 @@ export const styles = () =>
     cardContent: {
       background: "#f6f5fc",
     },
+    shopLogo: { color: "#5b5a61" },
     shopName: {
-      textAlign: "center",
       color: "#5b5a61",
       fontWeight: "bold",
       fontFamily: "arial ,sans-serif",
       paddingTop: "8px",
+    },
+    settingsBtn: {
+      marginLeft: "auto",
     },
   });

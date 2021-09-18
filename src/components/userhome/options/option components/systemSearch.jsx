@@ -3,7 +3,7 @@ import React from "react";
 import { Search } from "@material-ui/icons";
 
 //styles
-import { styles } from "../possystems/possystemsStyles";
+import { styles } from "../../possystems/possystemsStyles";
 export const SystemSearch = (props) => {
   console.log(props);
   const classes = styles()();

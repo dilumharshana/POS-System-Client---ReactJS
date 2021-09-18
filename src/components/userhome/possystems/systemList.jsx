@@ -11,8 +11,9 @@ import {
   IconButton,
   Typography,
 } from "@material-ui/core";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
-import DeleteIcon from "@material-ui/icons/Delete";
+
+import SettingsIcon from "@material-ui/icons/Settings";
+import StoreIcon from "@mui/icons-material/Store";
 
 //components
 import { DeletePopup } from "./deletePopup";
@@ -37,6 +38,19 @@ export const SystemList = (props) => {
         <Box display="flex" justifyContent="center" mb={4}>
           <Card className={classes.card} elevation={3}>
             <CardHeader
+              title={
+                <Box display="flex" alignItems="center">
+                  <Box>
+                    <StoreIcon className={classes.shopLogo} />
+                  </Box>
+                  <Box ml={2}>
+                    {" "}
+                    <Typography className={classes.shopName}>
+                      {systemName}
+                    </Typography>
+                  </Box>
+                </Box>
+              }
               action={
                 <DeletePopup
                   systemID={systemID}
@@ -48,9 +62,13 @@ export const SystemList = (props) => {
             <CardActionArea>
               <CardMedia image={grocery} className={classes.image} />
               <CardContent className={classes.cardContent}>
-                <Typography className={classes.shopName}>
-                  {systemName}
-                </Typography>
+                <Box display="flex">
+                  <Box className={classes.settingsBtn}>
+                    <IconButton size="normal">
+                      <SettingsIcon />
+                    </IconButton>
+                  </Box>
+                </Box>
               </CardContent>
             </CardActionArea>
           </Card>
