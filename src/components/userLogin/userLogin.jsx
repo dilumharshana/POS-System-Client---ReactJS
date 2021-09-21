@@ -52,11 +52,7 @@ export const UserLogin = () => {
   const logUser = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.post(
-        "http://localhost:2001/api/login",
-        formik.values,
-        config
-      );
+      const { data } = await axios.post("/api/login", formik.values, config);
 
       localStorage.setItem("userInfo", JSON.stringify(data));
       history.push("/userHome");

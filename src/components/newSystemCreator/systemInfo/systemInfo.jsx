@@ -61,12 +61,12 @@ export const SystemInfo = ({ name, owner, password, type, ...props }) => {
       });
       loadUser();
       toast.success(response.data, {
-        position: toast.POSITION.BOTTOM_LEFT,
+        position: "bottom-right",
         theme: "colored",
       });
       props.close();
     } catch (error) {
-      toast.error("Hmm... Something went wring");
+      toast.error("Hmm... Something went wring", { position: "bottom-right" });
     }
   };
 

@@ -51,7 +51,7 @@ export const DeletePopup = (props) => {
         });
 
       const response = await axios.post(
-        "http://localhost:2001/api/possystems/remove",
+        "api/possystems/remove",
         { systemID, _id },
         { "content-type": "Application/json" }
       );
@@ -61,12 +61,12 @@ export const DeletePopup = (props) => {
       closeConfirmationBox();
 
       toast.warn("System deleted successfully !", {
-        position: "bottom-left",
+        position: "bottom-right",
         theme: "colored",
       });
     } catch (error) {
       toast.error(error.response.data, {
-        position: "bottom-left",
+        position: "bottom-right",
         theme: "colored",
       });
     }

@@ -1,25 +1,14 @@
-import {
-  Grid,
-  Box,
-  Avatar,
-  Button,
-  Typography,
-  Divider,
-} from "@material-ui/core";
+import { Grid, Box, Avatar, Button, Typography } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import BeenhereIcon from "@material-ui/icons/Beenhere";
-import StoreIcon from "@mui/icons-material/Store";
 
 //components
+import { ProfileInfo } from "./components/profileInfo";
 import { PremiumBtn } from "../../premeiumBtn/premiumBtn";
-
-//assets
-import profilepic from "../../../assests/profile/profilepic.jpg";
 
 //styles
 import { styles } from "./profileStyles";
-import { StyledBadge } from "./profileStyles";
 
 export const Profile = (props) => {
   const currentUser = useSelector((store) => store.currentUser);
@@ -28,43 +17,7 @@ export const Profile = (props) => {
 
   return (
     <Grid container alignItems="center" direction="column">
-      <Grid item xs={6}>
-        <StyledBadge
-          variant="dot"
-          overlap="circular"
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "right",
-          }}
-        >
-          <Avatar
-            alt={currentUser.name}
-            src={profilepic}
-            className={classes.profilePic}
-          />
-        </StyledBadge>
-      </Grid>
-      <Grid item>
-        <Box mt={2}>
-          <Typography variant="h6" className={classes.userName}>
-            {currentUser.name}
-          </Typography>
-        </Box>
-      </Grid>
-      <Grid item>
-        <Box className={classes.email}>{currentUser.email}</Box>
-      </Grid>
-      <Grid>
-        <Box display="flex" mt={2}>
-          <Box>
-            <StoreIcon />
-          </Box>
-          <Box className={classes.email} ml={2}>
-            owns {currentUser.possystems && currentUser.possystems.length}{" "}
-            active systems
-          </Box>
-        </Box>
-      </Grid>
+      <ProfileInfo classes={classes} currentUser={currentUser} />
 
       <Grid item>
         {

@@ -40,10 +40,7 @@ export const UserRegister = () => {
   //registration function
   const registerUser = async () => {
     try {
-      const data = await axios.post(
-        "http://localhost:2001/api/users/register",
-        formik.values
-      );
+      const data = await axios.post("api/users/register", formik.values);
     } catch (error) {
       userRegistrationState({
         state: false,

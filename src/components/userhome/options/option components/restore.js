@@ -26,20 +26,20 @@ export const restore = async (
         return toast.error(
           `You  have " ${systemName}" in currently using Systems. 
       Rename that system to recover previous one `,
-          { position: "bottom-left", theme: "colored", autoClose: false }
+          { position: "bottom-right", theme: "colored", autoClose: false }
         );
 
       const response = await axios.post(
-        "http://localhost:2001/api/possystems/restore",
+        "api/possystems/restore",
         { systemID, _id },
         config
       );
 
-      return toast.success(response);
+      return toast.success(response, { position: "bottom-right" });
     }
 
     return history.push("/payments");
   } catch (error) {
-    toast.error(error.response.data);
+    toast.error(error.response.data, { position: "bottom-right" });
   }
 };

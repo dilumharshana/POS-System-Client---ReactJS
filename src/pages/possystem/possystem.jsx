@@ -8,7 +8,6 @@ export const PosSystem = () => {
 
   return (
     <>
-      <h1>hello pos window</h1>
       <Button
         variant="contained"
         onClick={() => {
