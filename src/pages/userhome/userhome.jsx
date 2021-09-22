@@ -43,8 +43,6 @@ export const UserHome = () => {
 
   window.onresize = () => setNewDeviceWidth();
 
-  console.log(search);
-
   //styles
   const classes = styles()();
 

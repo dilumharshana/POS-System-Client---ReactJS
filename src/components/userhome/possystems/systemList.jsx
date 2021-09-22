@@ -62,7 +62,7 @@ export const SystemList = (props) => {
   return (
     <>
       <Grid item>
-        <Box display="flex" justifyContent="center" mb={4}>
+        <Box display="flex" justifyContent="center">
           <Card className={classes.card} elevation={3}>
             <CardHeader
               title={

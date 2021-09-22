@@ -1,4 +1,4 @@
-import { Grid, Box, Avatar, Button, Typography } from "@material-ui/core";
+import { Grid, Box, Button } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
 import BeenhereIcon from "@material-ui/icons/Beenhere";
@@ -18,10 +18,9 @@ export const Profile = (props) => {
   return (
     <Grid container alignItems="center" direction="column">
       <ProfileInfo classes={classes} currentUser={currentUser} />
-
       <Grid item>
         {
-          <Box display="flex" mt={3} className={classes.isPremiumBox} p={1}>
+          <Box display="flex" mt={1} className={classes.isPremiumBox} p={1}>
             <Box>
               {currentUser.isPremium === true ? (
                 <BeenhereIcon className={classes.isPremiumbadge} />
@@ -39,7 +38,9 @@ export const Profile = (props) => {
       </Grid>
       {!currentUser.isPremium ? (
         <Grid>
-          <PremiumBtn />
+          <Box mt={3}>
+            <PremiumBtn />
+          </Box>
         </Grid>
       ) : null}
 
@@ -58,8 +59,6 @@ export const Profile = (props) => {
           </Button>
         </Box>
       ) : null}
-
-      <Grid></Grid>
     </Grid>
   );
 };

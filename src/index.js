@@ -5,6 +5,8 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./state/store";
+import { persistor } from "./state/store";
+import { PersistGate } from "redux-persist/integration/react";
 
 //pages
 import { IndexPage } from "./pages/indexPage/indexPage";
@@ -13,6 +15,7 @@ import { UserRegister } from "./components/userRegister/userRegister";
 import { UserHome } from "./pages/userhome/userhome";
 import { Payments } from "./pages/payments/payments";
 import { PosSystem } from "./pages/possystem/possystem";
+import { ProfileEdit } from "./pages/editAdminProfile/profileedit";
 import { NotFound } from "./pages/notFound/notFound";
 import {
   ProtectedLogin,
@@ -20,24 +23,32 @@ import {
   Login,
   PaymentsPage,
   LoadPosSystem,
+  LoadAdminProfileEdit,
 } from "./pages/protectedLogin/protectedRoutes";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router>
-        <App>
-          <Switch>
-            <Route exact path="/register" component={UserRegister} />
-            <Login exact path="/login" component={UserLogin} />
-            <DirectLogin exact path="/" component={IndexPage} />
-            <ProtectedLogin exact path="/userHome" component={UserHome} />
-            <PaymentsPage exact path="/payments" component={Payments} />
-            <LoadPosSystem exact path="/pos" component={PosSystem} />
-            <Route component={NotFound} />
-          </Switch>
-        </App>
-      </Router>
+      <PersistGate persistor={persistor}>
+        <Router>
+          <App>
+            <Switch>
+              <Route exact path="/register" component={UserRegister} />
+              <Login exact path="/login" component={UserLogin} />
+              <ProtectedLogin exact path="/userHome" component={UserHome} />
+              <PaymentsPage exact path="/payments" component={Payments} />
+              <LoadPosSystem exact path="/pos" component={PosSystem} />
+              <LoadAdminProfileEdit
+                exact
+                path="/editAdmin"
+                component={ProfileEdit}
+              />
+              <DirectLogin exact path="/" component={IndexPage} />
+              <Route component={NotFound} />
+            </Switch>
+          </App>
+        </Router>
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

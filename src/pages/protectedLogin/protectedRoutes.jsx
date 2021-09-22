@@ -58,3 +58,13 @@ export const LoadPosSystem = ({ component, ...pathProps }) => {
     <Redirect to="/userHome" />
   );
 };
+
+//admin profilr edit
+export const LoadAdminProfileEdit = ({ component, ...pathProps }) => {
+  const isAuthorized = localStorage.getItem("userInfo");
+  return isAuthorized ? (
+    <Route {...pathProps} component={component} />
+  ) : (
+    <Redirect to="/login" />
+  );
+};

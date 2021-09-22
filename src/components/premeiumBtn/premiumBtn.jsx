@@ -23,7 +23,6 @@ export const PremiumBtn = () => {
       <Box
         p={2}
         className={classes.root}
-        mt={6}
         display="flex"
         flexDirection="column"
         alignItems="center"

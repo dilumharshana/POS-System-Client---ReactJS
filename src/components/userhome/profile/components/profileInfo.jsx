@@ -1,16 +1,13 @@
-import { useEffect } from "react";
-import { Grid, Box, Typography, Avatar } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
+import { Grid, Box, Typography, Avatar, IconButton } from "@material-ui/core";
 import StoreIcon from "@mui/icons-material/Store";
-import axios from "axios";
+import EditIcon from "@mui/icons-material/Edit";
 
 //styles
 import { StyledBadge } from "../profileStyles";
 
 export const ProfileInfo = ({ classes, currentUser }) => {
-  //profile picture
-  const avatar =
-    currentUser.adminProfilePicture &&
-    URL.createObjectURL(currentUser.adminProfilePicture.data);
+  const history = useHistory();
 
   return (
     <>
@@ -25,7 +22,7 @@ export const ProfileInfo = ({ classes, currentUser }) => {
         >
           <Avatar
             alt={currentUser.name}
-            src={avatar}
+            src={currentUser.adminProfilePicture}
             className={classes.profilePic}
           />
         </StyledBadge>
@@ -48,6 +45,15 @@ export const ProfileInfo = ({ classes, currentUser }) => {
           <Box className={classes.email} ml={2}>
             owns {currentUser.possystems && currentUser.possystems.length}{" "}
             active systems
+          </Box>
+        </Box>
+      </Grid>
+      <Grid>
+        <Box display="flex" alignItems="center">
+          <Box>
+            <IconButton onClick={() => history.push("/editAdmin")}>
+              <EditIcon />
+            </IconButton>
           </Box>
         </Box>
       </Grid>

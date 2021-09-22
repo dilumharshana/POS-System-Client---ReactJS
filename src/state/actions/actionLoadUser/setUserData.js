@@ -1,5 +1,7 @@
 import axios from "axios";
 import { LOAD_USER } from "../../types";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const setUserData = () => async (dispatch) => {
   try {
@@ -9,18 +11,23 @@ export const setUserData = () => async (dispatch) => {
     );
 
     //profilepicture
-    const adminProfilePicture = await axios.get(
+    const profilePicture = await axios.get(
       `api/users/profilePicture/${data._id}`,
       { responseType: "blob" }
     );
 
-    const user = { ...data, adminProfilePicture };
+    //setting image
+    const adminProfilePicture = URL.createObjectURL(profilePicture.data);
 
+    const user = { ...data, adminProfilePicture };
     return dispatch({
       type: LOAD_USER,
       payload: user,
     });
   } catch (error) {
-    console.log(error);
+    return toast.error("Unable to update profile data", {
+      position: "bottom-right",
+      theme: "colored",
+    });
   }
 };
