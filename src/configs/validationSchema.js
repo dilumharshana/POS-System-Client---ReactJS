@@ -1,6 +1,9 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
 
+//validations
+import * as validation from "./validationRules";
+
 export const loginFormHandler = (onSubmit) => () => {
   //validation schema
 
@@ -21,35 +24,10 @@ export const loginFormHandler = (onSubmit) => () => {
 
 export const registerFromHandler = (onSubmit) => () => {
   const validationSchema = yup.object({
-    name: yup
-      .string()
-      .required("Required")
-      .test("checkName", "Invalid Name", function () {
-        if (
-          /(?=.*?[0-9])/.test(this.parent.name) ||
-          /(?=.*?[#?!@$%^&*-/_(){}.`])/.test(this.parent.name)
-        ) {
-          return false;
-        }
-        return true;
-      })
-      .min(3, "Name must contain atleast 3 characters")
-      .max(25, "Name must be less than 25 characters"),
-    email: yup.string().required("Required").email("Invalid email address"),
-    password: yup
-      .string()
-      .required("Required")
-      .matches(/(?=.*?[a-z])/, "Should include atleast on lowercase character")
-      .matches(/(?=.*?[A-Z])/, "Should include atleast one uppercase character")
-      .matches(/(?=.*?[0-9])/, "Should include atleast one number")
-      .matches(
-        /[?=.*?[#?!@$%^&*-/_(){}.=\:;|<>`]/,
-        "Should include atleast one special charactor"
-      ),
-    repassword: yup
-      .string()
-      .required("Required")
-      .oneOf([yup.ref("password")], "Passwords not match"),
+    name: validation.nameValidation(),
+    email: validation.emailValidatiion(),
+    password: validation.passwordValidation(),
+    repassword: validation.retypePasswordValidation(),
   });
   return useFormik({
     initialValues: {

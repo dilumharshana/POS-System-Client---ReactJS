@@ -33,7 +33,6 @@ export const UserHome = () => {
   const setNewDeviceWidth = bindActionCreators(setDeviceWidth, useDispatch());
 
   const [tabValue, setTabValue] = useState(0);
-  const [search, setSearch] = useState("");
 
   const deviceWidth = useSelector((store) => store.deviceWidth);
 
@@ -73,13 +72,10 @@ export const UserHome = () => {
           <Profile />
         </Grid>
         <Grid lg={6} xl={6} className={classes.root}>
-          <PosSystems deviceWidth={deviceWidth} search={search} />
+          <PosSystems deviceWidth={deviceWidth} />
         </Grid>
         <Grid lg={3} xl={3}>
-          <Options
-            deviceWidth={deviceWidth}
-            setSearch={(value) => setSearch(value)}
-          />
+          <Options deviceWidth={deviceWidth} />
         </Grid>
       </Grid>
     </>
@@ -106,30 +102,35 @@ export const UserHome = () => {
             variant="fullWidth"
             onChange={(event, newValue) => setTabValue(newValue)}
           >
+            {/* //systems */}
             <Tab
               label="Systems"
               icon={<SurroundSoundIcon />}
               {...tabProps(0)}
             />
+
+            {/* //options */}
             <Tab label="Options" icon={<AddCircleIcon />} {...tabProps(1)} />
+
+            {/* //Profile */}
             <Tab label="Profile" icon={<PersonIcon />} {...tabProps(2)} />
           </Tabs>
         </AppBar>
+
         <Toolbar />
         <Toolbar />
+
+        {/* //systems */}
         <TabPanel value={tabValue} index={0}>
-          <PosSystems
-            deviceWidth={deviceWidth}
-            search={search}
-            setSearch={(value) => setSearch(value)}
-          />
+          <PosSystems deviceWidth={deviceWidth} />
         </TabPanel>
+
+        {/* //options */}
         <TabPanel value={tabValue} index={1}>
-          <Options
-            deviceWidth={deviceWidth}
-            setSearch={(value) => setSearch(value)}
-          />
+          <Options deviceWidth={deviceWidth} />
         </TabPanel>
+
+        {/* //profile */}
         <TabPanel value={tabValue} index={2}>
           <Profile mobileView={true} history={history} />
         </TabPanel>

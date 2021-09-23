@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
+import { useHistory } from "react-router-dom";
 import {
   Grid,
   Box,
@@ -34,6 +35,7 @@ import { validateName } from "../../../configs/adminDataUpdateValidation";
 const toastConfigs = {
   position: "bottom-right",
   theme: "colored",
+  autoClose: 3000,
 };
 
 export const PersonalInfo = () => {
@@ -43,6 +45,7 @@ export const PersonalInfo = () => {
 
   //states
   const [loading, setLoading] = useState(false);
+  const [nameLoading, setNameLoading] = useState(false);
   const loadUser = bindActionCreators(setUserData, useDispatch());
 
   //image uploading
@@ -92,6 +95,7 @@ export const PersonalInfo = () => {
   //name Update
   const updateName = async () => {
     try {
+      setNameLoading(true);
       const response = await axios.post(
         `/api/users/updateinfo/${currentUser._id}`,
         {
@@ -99,7 +103,8 @@ export const PersonalInfo = () => {
         },
         config
       );
-      toast.success(response.data.message, toastConfigs);
+      setNameLoading(false);
+      toast.success(response.data, toastConfigs);
     } catch (err) {
       console.log(err);
       toast.error("unable to update user", toastConfigs);
@@ -111,14 +116,15 @@ export const PersonalInfo = () => {
   const formik = useFormik();
 
   const classes = style(deviceWidth)();
-
-  console.log("first");
+  const history = useHistory();
 
   return (
     <>
       <Grid className={classes.closeIconRoot}>
         <Box mt={3} display="flex" justifyContent="flex-end" mr={5}>
-          <CloseIcon size="large" />
+          <IconButton onClick={() => history.push("/userHome")}>
+            <CloseIcon size="large" />
+          </IconButton>
         </Box>
       </Grid>
 
@@ -181,7 +187,6 @@ export const PersonalInfo = () => {
       </Grid>
 
       {/* //name area */}
-
       <Grid className={classes.nameRoot}>
         <form onSubmit={formik.handleSubmit}>
           <TextField
@@ -203,14 +208,18 @@ export const PersonalInfo = () => {
             justifyContent={deviceWidth > 1280 ? "flex-end" : "center"}
           >
             <Box>
-              <Button
-                variant="contained"
-                color="primary"
-                type="submit"
-                className={classes.saveBtn}
-              >
-                Save
-              </Button>
+              {nameLoading ? (
+                <CircularProgress />
+              ) : (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  type="submit"
+                  className={classes.saveBtn}
+                >
+                  Save
+                </Button>
+              )}
             </Box>
           </Box>
         </form>

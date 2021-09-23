@@ -3,6 +3,7 @@ import { Grid } from "@material-ui/core";
 
 //components
 import { PersonalInfo } from "./components/personalInfo";
+import { Security } from "./components/security";
 
 //style
 import { style } from "./components/editProfileStyles";
@@ -16,6 +17,9 @@ export const ProfileEdit = () => {
     <Grid container direction="column" alignItems="center">
       {/* //personal information */}
       <PersonalInfo />
+
+      {/* //security */}
+      <Security />
     </Grid>
   );
 };

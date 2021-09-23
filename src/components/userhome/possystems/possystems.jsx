@@ -8,6 +8,7 @@ import { SystemSearch } from "../options/option components/systemSearch";
 export const PosSystems = (props) => {
   const {
     currentUser: { possystems: systems, _id: owner },
+    systemSearch,
   } = useSelector((store) => store);
 
   const { search, deviceWidth } = props;
@@ -17,39 +18,39 @@ export const PosSystems = (props) => {
     return <Grid>Create a system</Grid>;
   }
 
+  const defaultSystemList = () => (
+    <Grid container direction="column">
+      {systems &&
+        systems.map((system) => <SystemList system={system} _id={owner} />)}
+    </Grid>
+  );
+
   //something typed in search box
-  if (search.length > 0) {
+  const searchResults = () => {
     const searchResult = systems.filter((system) =>
-      system.name.toLowerCase().includes(search.toLowerCase()) ? system : null
+      system.name.toLowerCase().includes(systemSearch.toLowerCase())
+        ? system
+        : null
     );
     if (searchResult.length > 0)
       return (
         <Grid container direction="column">
-          {
-            ((
-              <center>
-                {props.deviceWidth < 1280 ? <SystemSearch /> : null}
-              </center>
-            ),
-            searchResult.map((system) => (
-              <SystemList system={system} _id={owner} />
-            )))
-          }
+          {searchResult.map((system) => (
+            <SystemList system={system} _id={owner} />
+          ))}
         </Grid>
       );
 
     return <Grid>No result found !</Grid>;
-  }
+  };
 
   return (
-    <Grid container direction="column">
-      <center>
-        {deviceWidth < 1280 ? (
-          <SystemSearch setSearch={props.setSearch} />
-        ) : null}
-      </center>
-      {systems &&
-        systems.map((system) => <SystemList system={system} _id={owner} />)}
-    </Grid>
+    <>
+      <center>{deviceWidth < 1280 ? <SystemSearch /> : null}</center>
+      {systemSearch && systemSearch.length > 0
+        ? searchResults()
+        : defaultSystemList()}
+      ,
+    </>
   );
 };

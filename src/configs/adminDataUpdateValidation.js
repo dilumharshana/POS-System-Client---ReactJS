@@ -1,23 +1,10 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
+import * as validation from "./validationRules";
 
 export const validateName = (name, onSubmit) => () => {
-  console.log("function");
   const validationSchema = yup.object({
-    name: yup
-      .string()
-      .required("Canot be empty")
-      .test("checkName", "Invalid Name", function () {
-        if (
-          /(?=.*?[0-9])/.test(this.parent.name) ||
-          /(?=.*?[#?!@$%^&*-/_(){}.`])/.test(this.parent.name)
-        ) {
-          return false;
-        }
-        return true;
-      })
-      .min(3, "Name must contain atleast 3 characters")
-      .max(25, "Name must be less than 25 characters"),
+    name: validation.nameValidation(),
   });
 
   return useFormik({
@@ -26,5 +13,22 @@ export const validateName = (name, onSubmit) => () => {
     },
     validationSchema,
     onSubmit,
+  });
+};
+
+export const validateAdminPassword = (onSubmit) => () => {
+  const validationSchema = yup.object({
+    oldPassword: yup.string().required("Requried"),
+    password: validation.passwordValidation(),
+    retypePassword: validation.retypePasswordValidation(),
+  });
+  return useFormik({
+    initialValues: {
+      oldPassword: "",
+      password: "",
+      retypePassword: "",
+    },
+    onSubmit,
+    validationSchema,
   });
 };
