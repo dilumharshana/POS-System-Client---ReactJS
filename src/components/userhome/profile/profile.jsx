@@ -17,7 +17,10 @@ export const Profile = (props) => {
 
   return (
     <Grid container alignItems="center" direction="column">
+      {/* //profile information */}
       <ProfileInfo classes={classes} currentUser={currentUser} />
+
+      {/* //account type  */}
       <Grid item>
         {
           <Box display="flex" mt={1} className={classes.isPremiumBox} p={1}>
@@ -44,6 +47,7 @@ export const Profile = (props) => {
         </Grid>
       ) : null}
 
+      {/* // sign out btn in mobile view  */}
       {props.mobileView === true ? (
         <Box mt={10}>
           <Button

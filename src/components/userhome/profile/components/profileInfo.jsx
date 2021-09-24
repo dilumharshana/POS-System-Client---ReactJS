@@ -1,5 +1,12 @@
 import { useHistory } from "react-router-dom";
-import { Grid, Box, Typography, Avatar, IconButton } from "@material-ui/core";
+import {
+  Grid,
+  Box,
+  Typography,
+  Avatar,
+  IconButton,
+  Divider,
+} from "@material-ui/core";
 import StoreIcon from "@mui/icons-material/Store";
 import EditIcon from "@mui/icons-material/Edit";
 
@@ -11,6 +18,7 @@ export const ProfileInfo = ({ classes, currentUser }) => {
 
   return (
     <>
+      {/* //profile picture */}
       <Grid item xs={6}>
         <StyledBadge
           variant="dot"
@@ -27,6 +35,8 @@ export const ProfileInfo = ({ classes, currentUser }) => {
           />
         </StyledBadge>
       </Grid>
+
+      {/* //name */}
       <Grid item>
         <Box mt={2}>
           <Typography variant="h6" className={classes.userName}>
@@ -34,9 +44,13 @@ export const ProfileInfo = ({ classes, currentUser }) => {
           </Typography>
         </Box>
       </Grid>
+
+      {/* //email */}
       <Grid item>
         <Box className={classes.email}>{currentUser.email}</Box>
       </Grid>
+
+      {/* //available systems */}
       <Grid>
         <Box display="flex" mt={2}>
           <Box>
@@ -48,6 +62,8 @@ export const ProfileInfo = ({ classes, currentUser }) => {
           </Box>
         </Box>
       </Grid>
+
+      {/* //edit icon */}
       <Grid>
         <Box display="flex" alignItems="center">
           <Box>

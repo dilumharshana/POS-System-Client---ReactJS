@@ -36,16 +36,20 @@ export const UserHome = () => {
 
   const deviceWidth = useSelector((store) => store.deviceWidth);
 
+  const history = useHistory();
+
   useEffect(() => {
-    loaduser();
+    try {
+      loaduser();
+    } catch (error) {
+      history.push("/login");
+    }
   }, [deviceWidth]);
 
   window.onresize = () => setNewDeviceWidth();
 
   //styles
   const classes = styles()();
-
-  const history = useHistory();
 
   //large screens
   const pcView = () => (

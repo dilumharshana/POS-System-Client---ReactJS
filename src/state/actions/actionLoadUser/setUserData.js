@@ -25,9 +25,7 @@ export const setUserData = () => async (dispatch) => {
       payload: user,
     });
   } catch (error) {
-    return toast.error("Unable to update profile data", {
-      position: "bottom-right",
-      theme: "colored",
-    });
+    localStorage.removeItem("userInfo");
+    return error;
   }
 };
