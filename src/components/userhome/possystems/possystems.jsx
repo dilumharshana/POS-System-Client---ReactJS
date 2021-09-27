@@ -4,6 +4,7 @@ import { Grid } from "@material-ui/core";
 //components
 import { SystemList } from "./systemList";
 import { SystemSearch } from "../options/option components/systemSearch";
+import { NoSystemsBanner } from "./noSystemsBanner";
 
 export const PosSystems = (props) => {
   const {
@@ -15,11 +16,8 @@ export const PosSystems = (props) => {
 
   //systems not loaded
   if (!systems || systems.length === 0) {
-    return <Grid>Create a system</Grid>;
+    return <NoSystemsBanner />;
   }
-
-//   Meeting ID: 326 073 7567
-// Passcode: Vgsp@1234
 
   const defaultSystemList = () => (
     <Grid container direction="column">

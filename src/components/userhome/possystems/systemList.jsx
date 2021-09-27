@@ -37,8 +37,10 @@ export const SystemList = (props) => {
 
   //style config
   const classes = styles()();
+
+  //props comming from possystems component
   const {
-    system: { name: systemName, id: systemID, password },
+    system: { name: systemName, id: systemID },
     _id,
   } = props;
 
@@ -47,12 +49,7 @@ export const SystemList = (props) => {
   //open pos system
   const loadSystem = async () => {
     try {
-      await handleSystemLoader(
-        systemID,
-        password,
-        formik.values.password,
-        history
-      );
+      await handleSystemLoader(systemID, formik.values.password, history);
     } catch (error) {
       console.log(error);
     }
@@ -65,27 +62,25 @@ export const SystemList = (props) => {
         <Box display="flex" justifyContent="center" mb={2}>
           <Card className={classes.card} elevation={3}>
             <CardHeader
+              //system name
               title={
                 <Box display="flex" alignItems="center">
                   <Box>
                     <StoreIcon className={classes.shopLogo} />
                   </Box>
                   <Box ml={2}>
-                    {" "}
                     <Typography className={classes.shopName}>
                       {systemName}
                     </Typography>
                   </Box>
                 </Box>
               }
-              action={
-                <DeletePopup
-                  systemID={systemID}
-                  _id={_id}
-                  systemPassword={password}
-                />
-              }
+              //system delete btn
+
+              action={<DeletePopup systemID={systemID} _id={_id} />}
             />
+
+            {/* // passoword box model */}
             <SystemPasswordBox
               open={openDialog}
               name="password"
@@ -93,6 +88,7 @@ export const SystemList = (props) => {
               title="Enter password to login"
               close={() => setOpenDialog(false)}
               formik={formik}
+              //password box button props
               dialogAction={
                 <>
                   <Button
@@ -108,6 +104,8 @@ export const SystemList = (props) => {
                 </>
               }
             />
+
+            {/* //system body area (open system clickable area) */}
             <CardActionArea onClick={() => setOpenDialog(true)}>
               <CardMedia image={grocery} className={classes.image} />
               <CardContent className={classes.cardContent}>

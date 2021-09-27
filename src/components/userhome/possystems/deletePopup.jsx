@@ -5,7 +5,6 @@ import { IconButton, Popover, Button } from "@material-ui/core";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import DeleteIcon from "@material-ui/icons/Delete";
 import axios from "axios";
-import bcryptjs from "bcryptjs";
 import { toast } from "react-toastify";
 
 //component
@@ -17,6 +16,9 @@ import { setUserData } from "../../../state/actions/actionLoadUser/setUserData";
 //form validation
 import { systemPasswordHandler } from "../../../configs/systemPasswordValidation";
 
+//axios configs
+import { config } from "../../../configs/jsonConfig";
+
 export const DeletePopup = (props) => {
   //states
   const [anchorEl, setAnchorEl] = useState(false);
@@ -26,10 +28,12 @@ export const DeletePopup = (props) => {
   const handlePopDelete = (event) => setAnchorEl(event.currentTarget);
   const handlePopDeleteClose = () => setAnchorEl(false);
 
+  //pop over box configs
   const open = Boolean(anchorEl);
   const id = open ? "simple-popover" : undefined;
 
-  const { systemID, _id, systemPassword } = props;
+  //props comming from systemList component
+  const { systemID, _id } = props;
 
   const loadUser = bindActionCreators(setUserData, useDispatch());
 
@@ -44,13 +48,18 @@ export const DeletePopup = (props) => {
 
   const deleteSystem = async () => {
     try {
-      if (!(await bcryptjs.compare(formik.values.password, systemPassword)))
-        return toast.error("Incorrect Password", {
-          position: "bottom-center",
-          autoClose: 2000,
-        });
+      //verify passwords
+      await axios.post(
+        "/api/possystems/authsystem",
+        {
+          dbName: systemID,
+          password: formik.values.password,
+        },
+        config
+      );
 
-      const response = await axios.post(
+      //removeing system
+      await axios.post(
         "api/possystems/remove",
         { systemID, _id },
         { "content-type": "Application/json" }
@@ -58,6 +67,7 @@ export const DeletePopup = (props) => {
 
       loadUser(); //calling redux action to reload user
 
+      //closing password box
       closeConfirmationBox();
 
       toast.warn("System deleted successfully !", {
@@ -68,6 +78,7 @@ export const DeletePopup = (props) => {
       toast.error(error.response.data, {
         position: "bottom-right",
         theme: "colored",
+        autoClose: 3000,
       });
     }
   };

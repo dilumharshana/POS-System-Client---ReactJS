@@ -28,4 +28,12 @@ export const styles = () =>
     settingsBtn: {
       marginLeft: "auto",
     },
+    noSystemBannerRoot: {
+      background: "#e0e0e0",
+      border: "1px solid #949494",
+      borderRadius: "10px",
+      color: "#454141",
+      fontFamily: "arial",
+      fontWeight: "bold",
+    },
   });

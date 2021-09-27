@@ -2,6 +2,9 @@ import { makeStyles } from "@material-ui/core";
 
 export const styles = (divHeight) =>
   makeStyles((theme) => ({
+    createASystemText: {
+      textAlign: "center",
+    },
     btnAdd: {
       width: theme.spacing(30),
       height: theme.spacing(10),
@@ -12,9 +15,10 @@ export const styles = (divHeight) =>
       },
     },
     recycleBin: {
-      width: "100%",
+      width: "80%",
       height: theme.spacing(7),
-      border: "1px solid #8c8c8c",
+      border: "1px solid #bababa",
+      borderRadius: "5px",
     },
     systemList: {
       color: divHeight ? "green" : "",

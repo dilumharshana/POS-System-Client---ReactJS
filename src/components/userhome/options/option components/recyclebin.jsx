@@ -51,48 +51,47 @@ export const Recyclebin = () => {
 
   if (removedSystems && removedSystems.length > 0)
     return (
-      <Grid>
-        <Paper elevation={2}>
-          <Box
-            mt={3}
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            className={classes.recycleBin}
-          >
-            <Box mr={3} ml={2}>
-              <AutoDeleteIcon />
-            </Box>
-            <Box>Recycled Systems</Box>
-            <Box ml={3}>
-              <IconButton onClick={() => setheight(!height)}>
-                {height ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-              </IconButton>
-            </Box>
+      <>
+        <Box
+          mt={3}
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          className={classes.recycleBin}
+        >
+          <Box mr={3} ml={2}>
+            <AutoDeleteIcon />
           </Box>
-          <div className={classes.systemList}>
-            <List>
-              {removedSystems &&
-                removedSystems.map((system) => (
-                  <ListItem key={system.id}>
-                    <ListItemText
-                      primary={system.name}
-                      secondary={`On : ${system.date}`}
-                    />
+          <Box>Recycled Systems</Box>
+          <Box ml={3}>
+            <IconButton onClick={() => setheight(!height)}>
+              {height ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </IconButton>
+          </Box>
+        </Box>
 
-                    <Avatar>
-                      <IconButton
-                        onClick={() => handleRestore(system.id, system.name)}
-                      >
-                        <RestoreIcon className={classes.restoreBtn} />
-                      </IconButton>
-                    </Avatar>
-                  </ListItem>
-                ))}
-            </List>
-          </div>
-        </Paper>
-      </Grid>
+        <div className={classes.systemList}>
+          <List>
+            {removedSystems &&
+              removedSystems.map((system) => (
+                <ListItem key={system.id}>
+                  <ListItemText
+                    primary={system.name}
+                    secondary={`On : ${system.date}`}
+                  />
+
+                  <Avatar>
+                    <IconButton
+                      onClick={() => handleRestore(system.id, system.name)}
+                    >
+                      <RestoreIcon className={classes.restoreBtn} />
+                    </IconButton>
+                  </Avatar>
+                </ListItem>
+              ))}
+          </List>
+        </div>
+      </>
     );
   return null;
 };
