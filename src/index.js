@@ -25,7 +25,6 @@ import {
   LoadPosSystem,
   LoadAdminProfileEdit,
 } from "./pages/protectedLogin/protectedRoutes";
-import SysApp from "../../../new/New folder/frontend_pos/src/App";
 
 const uh = process.env.REACT_APP_USERHOME;
 
@@ -47,7 +46,6 @@ ReactDOM.render(
                 component={ProfileEdit}
               />
               <DirectLogin exact path="/" component={IndexPage} />
-              <Route exact path="/sys" component={SysApp} />
               <Route component={NotFound} />
             </Switch>
           </App>
