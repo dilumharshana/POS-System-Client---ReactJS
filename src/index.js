@@ -14,7 +14,7 @@ import { UserLogin } from "./components/userLogin/userLogin";
 import { UserRegister } from "./components/userRegister/userRegister";
 import { UserHome } from "./pages/userhome/userhome";
 import { Payments } from "./pages/payments/payments";
-import { PosSystem } from "./pages/possystem/possystem";
+import { System } from "./POS_APP/POS_Pages/system";
 import { ProfileEdit } from "./pages/editAdminProfile/profileedit";
 import { NotFound } from "./pages/notFound/notFound";
 import {
@@ -39,7 +39,7 @@ ReactDOM.render(
               <Login exact path="/login" component={UserLogin} />
               <ProtectedLogin exact path={uh} component={UserHome} />
               <PaymentsPage exact path="/payments" component={Payments} />
-              <LoadPosSystem exact path="/pos" component={PosSystem} />
+              <LoadPosSystem exact path="/pos" component={System} />
               <LoadAdminProfileEdit
                 exact
                 path="/editAdmin"

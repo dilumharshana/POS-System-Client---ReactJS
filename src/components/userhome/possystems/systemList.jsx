@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
 import {
   Card,
   CardActionArea,
@@ -12,6 +14,7 @@ import {
   Typography,
   Button,
 } from "@material-ui/core";
+import { toast } from "react-toastify";
 
 import SettingsIcon from "@material-ui/icons/Settings";
 import StoreIcon from "@mui/icons-material/Store";
@@ -23,8 +26,12 @@ import { SystemPasswordBox } from "../../system password box/systemPasswordBox";
 //assests
 import grocery from "../../../assests/systems/grocery.jpg";
 
+//actions
+import { setSystem } from "../../../state/actions/actionSetSystem/actionSetSystem";
+
 //styles
 import { styles } from "./possystemsStyles";
+import "react-toastify/dist/ReactToastify.css";
 
 //system loader
 import { handleSystemLoader } from "./handleSystemLoader";
@@ -46,14 +53,28 @@ export const SystemList = (props) => {
 
   const history = useHistory();
 
+  //setting actions
+  const setCurrentSystem = bindActionCreators(setSystem, useDispatch());
+
   //open pos system
   const loadSystem = async () => {
     try {
+      //pos system loading process
       await handleSystemLoader(systemID, formik.values.password, history);
+
+      //setting current system name
+      setCurrentSystem(systemID);
+
+      //redirecting user to pos system if everyting is correct
+      return history.push("/pos");
     } catch (error) {
-      console.log(error);
+      toast.error("System load failture. Try again !", {
+        position: "bottom-right",
+        theme: "colored",
+      });
     }
   };
+
   const formik = systemPasswordHandler(loadSystem)();
 
   return (
