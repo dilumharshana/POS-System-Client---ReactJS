@@ -14,7 +14,7 @@ import { UserLogin } from "./components/userLogin/userLogin";
 import { UserRegister } from "./components/userRegister/userRegister";
 import { UserHome } from "./pages/userhome/userhome";
 import { Payments } from "./pages/payments/payments";
-import { System } from "./POS_APP/POS_Pages/system";
+import { System } from "./POS_APP/system";
 import { ProfileEdit } from "./pages/editAdminProfile/profileedit";
 import { NotFound } from "./pages/notFound/notFound";
 import {

@@ -1,6 +1,6 @@
 import { LOAD_SYSTEM } from "../../types";
 
-export const selectedSystem = (state = {}, action) => {
+export const currentSystem = (state = {}, action) => {
   switch (action.type) {
     case LOAD_SYSTEM:
       return action.payload;

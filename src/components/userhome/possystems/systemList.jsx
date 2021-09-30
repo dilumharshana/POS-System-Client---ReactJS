@@ -15,7 +15,6 @@ import {
   Button,
 } from "@material-ui/core";
 import { toast } from "react-toastify";
-
 import SettingsIcon from "@material-ui/icons/Settings";
 import StoreIcon from "@mui/icons-material/Store";
 
@@ -64,11 +63,8 @@ export const SystemList = (props) => {
 
       //setting current system name
       setCurrentSystem(systemID);
-
-      //redirecting user to pos system if everyting is correct
-      return history.push("/pos");
     } catch (error) {
-      toast.error("System load failture. Try again !", {
+      toast.error(error.response.data, {
         position: "bottom-right",
         theme: "colored",
       });

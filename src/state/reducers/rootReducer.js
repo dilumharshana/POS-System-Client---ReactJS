@@ -4,7 +4,7 @@ import { deviceWidth } from "./diviceWidth/Reducer-deviceWidth";
 import { userLoginState } from "./userLoginState/Reducer-userLoginState";
 import { currentUser } from "./currentUser/Reducer-currentUser";
 import { systemSearch } from "./systemsSearch/Reducer-setSystemSearch";
-import { selectedSystem } from "./selectedSystem/Reducer-selectedSystem";
+import { currentSystem } from "./currentSystem/Reducer-currentSystem";
 
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
   userLoginState,
   currentUser,
   systemSearch,
-  selectedSystem,
+  currentSystem,
 });
 
 export const reducers = persistReducer(persistConfig, rootReducer);

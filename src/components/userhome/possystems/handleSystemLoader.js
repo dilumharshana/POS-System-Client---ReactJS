@@ -1,9 +1,13 @@
 import axios from "axios";
 import bcryptjs from "bcryptjs";
-import { toast } from "react-toastify";
 import { config } from "../../../configs/jsonConfig";
+import { toast } from "react-toastify";
 
-export const handleSystemLoader = async (systemId, userEnterdPassword) => {
+export const handleSystemLoader = async (
+  systemId,
+  userEnterdPassword,
+  history
+) => {
   try {
     //verify passwords
     await axios.post(
@@ -16,15 +20,17 @@ export const handleSystemLoader = async (systemId, userEnterdPassword) => {
     );
 
     //setting a token in localstorage
-    return localStorage.setItem(
+    localStorage.setItem(
       "UserPosSystem",
       await bcryptjs.hash(systemId.toString(), await bcryptjs.genSalt(10))
     );
+
+    //redirecting user to pos system if everyting is correct
+    return history.push("/pos");
   } catch (error) {
     return toast.error(error.response.data, {
       position: "bottom-right",
       theme: "colored",
-      autoClose: 3000,
     });
   }
 };

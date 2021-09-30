@@ -73,12 +73,14 @@ export const UserLogin = () => {
     <UserAuthTemplate page="Register">
       <form onSubmit={formik.handleSubmit}>
         <Grid container direction="column">
+          {/* //login text */}
           <Grid item>
             <Box pt={2} display="flex" justifyContent="center" pt={4} pb={3}>
               <h2>Login</h2>
             </Box>
           </Grid>
 
+          {/* //email */}
           <Grid item>
             <Box item pt={2} display="flex" justifyContent="center" p={2}>
               <TextField
@@ -98,6 +100,7 @@ export const UserLogin = () => {
             </Box>
           </Grid>
 
+          {/* //password */}
           <Grid item>
             <Box item pt={2} display="flex" p={2}>
               <TextField
@@ -129,6 +132,8 @@ export const UserLogin = () => {
               />
             </Box>
           </Grid>
+
+          {/* //login btn */}
           <Grid item>
             <Box item pt={2} display="flex" justifyContent="center">
               {loading ? (
@@ -140,6 +145,8 @@ export const UserLogin = () => {
               )}
             </Box>
           </Grid>
+
+          {/* //forgot password */}
           <Grid item pb={2}>
             <Box className={classes.forgotPasswordLables} p={2}>
               Forget password
@@ -147,6 +154,8 @@ export const UserLogin = () => {
           </Grid>
 
           <Divider light={true} />
+
+          {/* //google sign in */}
           <Grid item>
             <Box
               item
