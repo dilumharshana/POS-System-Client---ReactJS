@@ -30,9 +30,7 @@ export const ProfileInfo = ({ classes, currentUser }) => {
         >
           <Avatar
             alt={currentUser.name}
-            src={
-              "https://dilumharshana.s3.ap-south-1.amazonaws.com/portrait-of-young-man-smiling-background-stock-photography_csp12568100.jpg"
-            }
+            src={currentUser.adminProfilePicture}
             className={classes.profilePic}
           />
         </StyledBadge>

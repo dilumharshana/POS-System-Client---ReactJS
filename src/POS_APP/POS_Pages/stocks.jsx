@@ -1,7 +1,7 @@
 import { Grid } from "@material-ui/core";
-import React from "react";
 
 //components
+import { AddStockItems } from "../Pos_components/stocks/addStockItems";
 import { StockItems } from "../Pos_components/stocks/stockItems";
 
 export const Stocks = (props) => {
@@ -9,6 +9,7 @@ export const Stocks = (props) => {
     <>
       <Grid container>
         <StockItems />
+        <AddStockItems />
       </Grid>
     </>
   );
