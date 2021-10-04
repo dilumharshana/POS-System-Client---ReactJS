@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { bindActionCreators } from "redux";
 import { Grid } from "@material-ui/core";
 import { Box } from "@mui/system";
 import Form from "react-bootstrap/form";
@@ -10,6 +11,9 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 
 //components
 import { InputField } from "./components/inputField";
+
+//actions
+import { setStock } from "../../../state/actions/actionSetStock/actionSetStock";
 
 //styles
 import { styles } from "./components/stocksStyles";
@@ -30,7 +34,14 @@ export const AddStockItems = () => {
   //currnt system
   const { nameId } = useSelector((store) => store.currentSystem);
 
-  const handleSubmit = async () => {
+  //currnt stock
+  const stock = useSelector((store) => store.systemStock);
+
+  //actions
+  const reloadStock = bindActionCreators(setStock, useDispatch());
+
+  //this function pass to formik to run on onSubmit event
+  const onSubmit = async () => {
     try {
       setLoading(true);
       //getting aws image upload url friom backend server
@@ -38,7 +49,7 @@ export const AddStockItems = () => {
       // const fileExtention = formik.values.itemImage.split(".");
 
       const { data: uploadUrl } = await axios.get(
-        `/api/useposapp/generateImageUploadUrl/${nameId}-${formik.values.itemCode}`,
+        `/api/useposapp/generateImageUploadUrl/${nameId}-${formik.values.itemCode}.jpg`,
         jsonConfig
       ); //.${fileExtention[fileExtention.length - 1]}
 
@@ -69,23 +80,31 @@ export const AddStockItems = () => {
         jsonConfig
       );
 
-      setLoading(false);
+      //reload system stocks to redux
+      reloadStock(nameId);
+
       //notify
       toast.success("New item added successfully !", {
         position: "top-center",
         theme: "colored",
         autoClose: 2000,
       });
+
+      //resetting form
+      formik.resetForm();
+
+      setLoading(false);
     } catch (error) {
-      toast.error("Unable to add new itwm , Try again !", {
+      setLoading(false);
+      toast.error("Unable to add new item , Try again !", {
         position: "bottom-right",
         theme: "colored",
       });
     }
   };
 
-  //formik config
-  const useFormik = stockFormValidations(handleSubmit);
+  //formik config with pasrsing handle submit event
+  const useFormik = stockFormValidations(onSubmit, stock);
   const formik = useFormik();
 
   return (

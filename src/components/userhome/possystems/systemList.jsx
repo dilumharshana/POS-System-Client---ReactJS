@@ -27,6 +27,7 @@ import grocery from "../../../assests/systems/grocery.jpg";
 
 //actions
 import { setSystem } from "../../../state/actions/actionSetSystem/actionSetSystem";
+import { setStock } from "../../../state/actions/actionSetStock/actionSetStock";
 
 //styles
 import { styles } from "./possystemsStyles";
@@ -54,6 +55,7 @@ export const SystemList = (props) => {
 
   //setting actions
   const setCurrentSystem = bindActionCreators(setSystem, useDispatch());
+  const setSystemStock = bindActionCreators(setStock, useDispatch());
 
   //open pos system
   const loadSystem = async () => {
@@ -63,6 +65,9 @@ export const SystemList = (props) => {
 
       //setting current system name
       setCurrentSystem(systemID);
+
+      //setting system stock
+      setSystemStock(systemID);
     } catch (error) {
       toast.error(error.response.data, {
         position: "bottom-right",

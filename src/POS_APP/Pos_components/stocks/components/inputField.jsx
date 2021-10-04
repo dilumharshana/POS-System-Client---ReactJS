@@ -1,5 +1,4 @@
 import Form from "react-bootstrap/form";
-import Button from "react-bootstrap/Button";
 
 //style
 import { styles } from "./stocksStyles";

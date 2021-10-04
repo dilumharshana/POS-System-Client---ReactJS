@@ -5,6 +5,7 @@ import { userLoginState } from "./userLoginState/Reducer-userLoginState";
 import { currentUser } from "./currentUser/Reducer-currentUser";
 import { systemSearch } from "./systemsSearch/Reducer-setSystemSearch";
 import { currentSystem } from "./currentSystem/Reducer-currentSystem";
+import { systemStock } from "./systemStock/Reducer-systemStock";
 
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   currentUser,
   systemSearch,
   currentSystem,
+  systemStock,
 });
 
 export const reducers = persistReducer(persistConfig, rootReducer);

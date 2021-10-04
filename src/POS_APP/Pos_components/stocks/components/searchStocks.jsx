@@ -9,7 +9,7 @@ export const SearchStocks = () => {
   const classes = styles()();
   return (
     <>
-      <Box className={classes.root} p={3} mt={2}>
+      <Box className={classes.root} p={3} mt={2} mb={2}>
         <TextField
           fullWidth
           variant="filled"
