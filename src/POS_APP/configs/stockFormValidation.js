@@ -51,7 +51,6 @@ export const stockFormValidations = (onSubmit, items) => () => {
       cashPrice: "",
       sellingPrice: "",
       quantity: "",
-      itemImage: "",
     },
     validationSchema,
     onSubmit,

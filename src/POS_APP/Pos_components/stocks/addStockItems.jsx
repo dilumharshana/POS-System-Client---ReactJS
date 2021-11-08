@@ -49,8 +49,7 @@ export const AddStockItems = () => {
       // const fileExtention = formik.values.itemImage.split(".");
 
       const { data: uploadUrl } = await axios.get(
-        `/api/useposapp/generateImageUploadUrl/${nameId}-${formik.values.itemCode}.jpg`,
-        jsonConfig
+        `/api/useposapp/stock/generateImageUploadUrl/${formik.values.itemCode}`
       ); //.${fileExtention[fileExtention.length - 1]}
 
       //uploading item image to aws bucket
@@ -75,7 +74,7 @@ export const AddStockItems = () => {
 
       //store item data in mongodb
       const response = await axios.post(
-        "/api/useposapp/addItem",
+        "/api/useposapp/stock/addItem",
         newItemData,
         jsonConfig
       );
@@ -92,10 +91,12 @@ export const AddStockItems = () => {
 
       //resetting form
       formik.resetForm();
+      document.getElementById("itemImage").value = null;
 
       setLoading(false);
     } catch (error) {
       setLoading(false);
+      console.log(error.response.data);
       toast.error("Unable to add new item , Try again !", {
         position: "bottom-right",
         theme: "colored",
@@ -192,16 +193,17 @@ export const AddStockItems = () => {
               {/* //image */}
               <InputField
                 label="Item Image"
+                id="itemImage"
                 type="file"
                 name="itemImage"
-                accept=".jpg , .png"
-                value={formik.values.itemImage}
-                onChange={formik.handleChange}
+                accept=".jpg , .jpeg , .png"
                 onBlur={formik.handleBlur}
-                isInvalid={
-                  formik.touched.itemImage && Boolean(formik.errors.itemImage)
-                }
-                error={formik.errors.itemImage}
+                onChange={(event) => {
+                  formik.setFieldValue(
+                    "itemImage",
+                    event.currentTarget.files[0]
+                  );
+                }}
               />
 
               {/* //submit button */}

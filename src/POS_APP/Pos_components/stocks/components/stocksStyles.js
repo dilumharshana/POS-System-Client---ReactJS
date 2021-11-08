@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 
 export const styles = () =>
-  makeStyles({
+  makeStyles((theme) => ({
     // formWrapperDiv: {
     //   height: "100px",
     //   overflow:'hidden'
@@ -40,6 +40,7 @@ export const styles = () =>
     imageBox: {
       //image side root box
       width: "35%",
+      overflow: "hidden",
     },
     prices: {
       //prices boxes
@@ -66,4 +67,4 @@ export const styles = () =>
       //card action area box
       borderTop: "1px solid grey",
     },
-  });
+  }));

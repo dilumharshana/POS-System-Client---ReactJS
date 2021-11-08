@@ -1,10 +1,10 @@
+import axios from "axios";
 import {
   Card,
   CardActionArea,
   CardActions,
   CardContent,
   CardHeader,
-  Grid,
   IconButton,
   Paper,
   Typography,
@@ -13,12 +13,39 @@ import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import Image from "react-bootstrap/Image";
+import { bindActionCreators } from "redux";
+import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 
 //styles
 import { styles } from "./stocksStyles";
+import "react-toastify/dist/ReactToastify.css";
+
+//configs
+import { jsonConfig } from "../../../../POS_APP/configs/jsonConfig";
+
+//actions
+import { setStock } from "../../../../state/actions/actionSetStock/actionSetStock";
+
+//delete Item
+const deleteItem = (systemNamenameId, itemCode) => {
+  try {
+    axios.post(
+      "/api/useposapp/stock/remove",
+      { systemNamenameId, itemCode },
+      jsonConfig
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export const StockItemList = ({ item }) => {
   const classes = styles()();
+
+  //setting actions
+  const refreshStock = bindActionCreators(setStock, useDispatch());
+
   const {
     _id,
     itemCode,
@@ -27,6 +54,7 @@ export const StockItemList = ({ item }) => {
     sellingPrice,
     itemImage,
     quantity,
+    systemNamenameId,
   } = item;
   return (
     <Box className={classes.stockItemCardRoot} mb={3}>
@@ -83,7 +111,17 @@ export const StockItemList = ({ item }) => {
               {/* //card actions (delete edit) */}
               <CardActions className={classes.cardActionArea}>
                 {/* //delete icon */}
-                <IconButton>
+                <IconButton
+                  onClick={() => {
+                    deleteItem(systemNamenameId, itemCode);
+                    refreshStock();
+                    toast.info("Item deleted successfully !", {
+                      position: "top-center",
+                      theme: "colored",
+                      autoClose: 2000,
+                    });
+                  }}
+                >
                   <DeleteIcon />
                 </IconButton>
 
@@ -97,15 +135,7 @@ export const StockItemList = ({ item }) => {
 
           {/* //item image */}
           <Box className={classes.imageBox}>
-            <Image
-              src={
-                "https://dilumharshana.s3.ap-south-1.amazonaws.com/7631906-324.jpg"
-              }
-              width="100%"
-              fluid
-              alt={itemCode}
-              rounded
-            />
+            <Image src={itemImage} width="100%" fluid alt={itemCode} rounded />
           </Box>
         </Box>
       </Paper>

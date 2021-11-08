@@ -7,12 +7,16 @@ import { StockItemList } from "./components/stockItemList";
 
 export const StockItems = (props) => {
   const systemStock = useSelector((store) => store.systemStock);
+  const systemNamenameId = useSelector((store) => store.currentSystem.nameId);
   return (
     <>
       <Grid container direction="column" alignItems="center" lg={6} xl={6}>
         <SearchStocks />
         {systemStock.map((item) => (
-          <StockItemList item={item} key={item.itemCode} />
+          <StockItemList
+            item={{ ...item, systemNamenameId }}
+            key={item.itemCode}
+          />
         ))}
       </Grid>
     </>
