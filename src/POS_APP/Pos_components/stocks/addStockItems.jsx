@@ -91,7 +91,7 @@ export const AddStockItems = () => {
 
       //resetting form
       formik.resetForm();
-      document.getElementById("itemImage").value = null;
+      formik.setFieldValue("itemImage", null);
 
       setLoading(false);
     } catch (error) {
@@ -197,7 +197,6 @@ export const AddStockItems = () => {
                 type="file"
                 name="itemImage"
                 accept=".jpg , .jpeg , .png"
-                onBlur={formik.handleBlur}
                 onChange={(event) => {
                   formik.setFieldValue(
                     "itemImage",

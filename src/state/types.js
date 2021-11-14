@@ -5,3 +5,4 @@ export const LOAD_USER = "LOAD_USER";
 export const SYSTEM_SEARCH = "SYSTEM_SEARCH";
 export const LOAD_SYSTEM = "LOAD_SYSTEM";
 export const LOAD_SYSTEM_STOCK = "LOAD_SYSTEM_STOCK";
+export const STOCK_ITEM_SEARCH = "STOCK_ITEM_SEARCH";

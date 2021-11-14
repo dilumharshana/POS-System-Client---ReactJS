@@ -3,7 +3,6 @@ import axios from "axios";
 import { config } from "../../../configs/jsonConfig";
 
 export const setStock = (systemID) => async (dispatch) => {
-  console.log(systemID);
   try {
     const { data } = await axios.get(
       `/api/possystems/getstock/${systemID}`,

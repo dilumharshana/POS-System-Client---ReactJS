@@ -1,3 +1,4 @@
+import { useState } from "react";
 import axios from "axios";
 import {
   Card,
@@ -7,15 +8,20 @@ import {
   CardHeader,
   IconButton,
   Paper,
+  Button,
   Typography,
 } from "@material-ui/core";
 import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import HideSourceIcon from "@mui/icons-material/HideSource";
 import Image from "react-bootstrap/Image";
 import { bindActionCreators } from "redux";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
+
+//component
+import { ConfirmationBox } from "../../../Pos_components/confirmation Box/confirmationBox";
 
 //styles
 import { styles } from "./stocksStyles";
@@ -40,14 +46,30 @@ const deleteItem = (systemNamenameId, itemCode) => {
   }
 };
 
+//hide item
+const hideItem = (systemNamenameId, itemCode) => {
+  try {
+    axios.post(
+      "/api/useposapp/stock/hide",
+      { systemNamenameId, itemCode },
+      jsonConfig
+    );
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const StockItemList = ({ item }) => {
+  //states
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [openHideDialog, setOpenHideDialog] = useState(false);
+
   const classes = styles()();
 
   //setting actions
   const refreshStock = bindActionCreators(setStock, useDispatch());
 
   const {
-    _id,
     itemCode,
     itemName,
     cashPrice,
@@ -111,18 +133,13 @@ export const StockItemList = ({ item }) => {
               {/* //card actions (delete edit) */}
               <CardActions className={classes.cardActionArea}>
                 {/* //delete icon */}
-                <IconButton
-                  onClick={() => {
-                    deleteItem(systemNamenameId, itemCode);
-                    refreshStock();
-                    toast.info("Item deleted successfully !", {
-                      position: "top-center",
-                      theme: "colored",
-                      autoClose: 2000,
-                    });
-                  }}
-                >
+                <IconButton onClick={() => setOpenDeleteDialog(true)}>
                   <DeleteIcon />
+                </IconButton>
+
+                {/* //hide icon */}
+                <IconButton onClick={() => setOpenHideDialog(true)}>
+                  <HideSourceIcon />
                 </IconButton>
 
                 {/* //edit icon */}
@@ -131,6 +148,78 @@ export const StockItemList = ({ item }) => {
                 </IconButton>
               </CardActions>
             </Card>
+
+            {/* //hide confiration box */}
+            <ConfirmationBox
+              title="This item will temporally disapear from the system and you can restore item from the settings. Confirm Hide !"
+              open={openHideDialog}
+              close={() => setOpenHideDialog(false)}
+              dialogAction={
+                <>
+                  {/* //cancel buton */}
+                  <Button
+                    variant="contained"
+                    color="inherit"
+                    onClick={() => setOpenHideDialog(false)}
+                  >
+                    CANCEL
+                  </Button>
+
+                  {/* //delete button */}
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => {
+                      hideItem(systemNamenameId, itemCode);
+                      refreshStock(systemNamenameId);
+                      toast.info("Item hidden successfully !", {
+                        position: "top-center",
+                        theme: "colored",
+                        autoClose: 2000,
+                      });
+                    }}
+                  >
+                    HIDE
+                  </Button>
+                </>
+              }
+            />
+
+            {/* //delete confiration box */}
+            <ConfirmationBox
+              title="Confirm delete"
+              open={openDeleteDialog}
+              close={() => setOpenDeleteDialog(false)}
+              dialogAction={
+                <>
+                  {/* //cancel buton */}
+                  <Button
+                    variant="contained"
+                    color="inherit"
+                    onClick={() => setOpenDeleteDialog(false)}
+                  >
+                    CANCEL
+                  </Button>
+
+                  {/* //delete button */}
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => {
+                      deleteItem(systemNamenameId, itemCode);
+                      refreshStock(systemNamenameId);
+                      toast.info("Item deleted successfully !", {
+                        position: "top-center",
+                        theme: "colored",
+                        autoClose: 2000,
+                      });
+                    }}
+                  >
+                    DELETE
+                  </Button>
+                </>
+              }
+            />
           </Box>
 
           {/* //item image */}
