@@ -1,34 +1,33 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import { Grid } from "@material-ui/core";
+import { AppBar, Grid, Toolbar, Typography } from "@material-ui/core";
 import { Box } from "@mui/system";
 import Form from "react-bootstrap/form";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-//actions
-import { setStock } from "../../../state/actions/actionSetStock/actionSetStock";
-
-//styles
-import { styles } from "./components/stocksStyles";
-import "react-toastify/dist/ReactToastify.css";
+//components
+import { ItemForm } from "../Pos_components/stocks/itemform";
 
 //validation
-import { stockFormValidations } from "../../configs/stockFormValidation";
+import { stockFormValidations } from "../../POS_APP/configs/stockFormValidation";
 
 //json configs
-import { jsonConfig, imageConfig } from "../../configs/jsonConfig";
-import { ItemForm } from "./itemform";
+import { jsonConfig, imageConfig } from "../configs/jsonConfig";
 
-export const AddStockItems = () => {
+//actions
+import { setStock } from "../../state/actions/actionSetStock/actionSetStock";
+import { Image } from "react-bootstrap";
+
+export const StockItemsUpdate = () => {
   const [loading, setLoading] = useState(false);
-
-  //style config
-  const classes = styles()();
 
   //currnt system
   const { nameId } = useSelector((store) => store.currentSystem);
+
+  //selected stock item
+  const stockItem = useSelector((store) => store.selectedStockItem);
 
   //currnt stock
   const stock = useSelector((store) => store.systemStock);
@@ -97,20 +96,36 @@ export const AddStockItems = () => {
   };
 
   //formik config with pasrsing handle submit event
-  const useFormik = stockFormValidations(onSubmit, stock);
+  const useFormik = stockFormValidations(onSubmit, stock, stockItem);
   const formik = useFormik();
 
   return (
-    <Grid alignItems="center" lg={6} xl={6}>
-      <Box display="flex" flexDirection="column" alignItems="center">
-        <Box mt={5} className={classes.formElementHolders}>
-          <div className={classes.formWrapperDiv}>
+    <>
+      {" "}
+      {/* //app bar */}
+      <AppBar>
+        <Toolbar>
+          <Typography variant="h4">Item - {stockItem.itemName}</Typography>
+        </Toolbar>
+      </AppBar>
+      <Toolbar />
+      <Toolbar />
+      <Grid lg={12} xl={12} container>
+        {/* form */}
+
+        <Grid lg={6} xl={6} container justifyContent="center">
+          <Grid lg={6} xl={6}>
             <Form onSubmit={formik.handleSubmit}>
-              <ItemForm formik={formik} loading={loading} />
+              <Box mb={2}>
+                <ItemForm formik={formik} loading={loading} />
+              </Box>
             </Form>
-          </div>
-        </Box>
-      </Box>
-    </Grid>
+          </Grid>
+        </Grid>
+        <Grid lg={6} xl={6} container justifyContent="center">
+          <Image src={stockItem.itemImage} width="50%" height="50%" />
+        </Grid>
+      </Grid>
+    </>
   );
 };

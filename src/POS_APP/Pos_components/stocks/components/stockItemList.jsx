@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useHistory } from "react-router";
 import axios from "axios";
 import {
   Card,
@@ -14,6 +15,8 @@ import {
 import { Box } from "@mui/system";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 import HideSourceIcon from "@mui/icons-material/HideSource";
 import Image from "react-bootstrap/Image";
 import { bindActionCreators } from "redux";
@@ -32,6 +35,7 @@ import { jsonConfig } from "../../../../POS_APP/configs/jsonConfig";
 
 //actions
 import { setStock } from "../../../../state/actions/actionSetStock/actionSetStock";
+import { setSelectItem } from "../../../../state/actions/actionSelectedStockItem/actionSelectedStockItem";
 
 //delete Item
 const deleteItem = (systemNamenameId, itemCode) => {
@@ -63,11 +67,13 @@ export const StockItemList = ({ item }) => {
   //states
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
   const [openHideDialog, setOpenHideDialog] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
 
   const classes = styles()();
 
   //setting actions
   const refreshStock = bindActionCreators(setStock, useDispatch());
+  const setSelectedStockItem = bindActionCreators(setSelectItem, useDispatch());
 
   const {
     itemCode,
@@ -77,7 +83,10 @@ export const StockItemList = ({ item }) => {
     itemImage,
     quantity,
     systemNamenameId,
+    description,
   } = item;
+
+  const history = useHistory();
   return (
     <Box className={classes.stockItemCardRoot} mb={3}>
       <Paper elevation={3} className={classes.wrapperPaper}>
@@ -130,23 +139,57 @@ export const StockItemList = ({ item }) => {
                 </Box>
               </CardContent>
 
-              {/* //card actions (delete edit) */}
+              {/* //card actions (delete hide edit description) */}
+
               <CardActions className={classes.cardActionArea}>
-                {/* //delete icon */}
-                <IconButton onClick={() => setOpenDeleteDialog(true)}>
-                  <DeleteIcon />
-                </IconButton>
+                <Box display="flex" style={{ width: "100%" }}>
+                  {/* //delete icon */}
+                  <Box>
+                    <IconButton onClick={() => setOpenDeleteDialog(true)}>
+                      <DeleteIcon />
+                    </IconButton>
+                  </Box>
 
-                {/* //hide icon */}
-                <IconButton onClick={() => setOpenHideDialog(true)}>
-                  <HideSourceIcon />
-                </IconButton>
+                  {/* //hide icon */}
+                  <Box>
+                    <IconButton onClick={() => setOpenHideDialog(true)}>
+                      <HideSourceIcon />
+                    </IconButton>
+                  </Box>
 
-                {/* //edit icon */}
-                <IconButton>
-                  <EditIcon />
-                </IconButton>
+                  {/* //edit icon */}
+                  <Box>
+                    <IconButton
+                      onClick={() => {
+                        setSelectedStockItem(item);
+                        history.push("/editItem");
+                      }}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                  </Box>
+
+                  {/* //description show icon */}
+                  {description && (
+                    <Box style={{ marginLeft: "auto" }}>
+                      <IconButton
+                        onClick={() => setShowDescription(!showDescription)}
+                      >
+                        {showDescription ? (
+                          <ExpandLessIcon />
+                        ) : (
+                          <ExpandMoreIcon />
+                        )}
+                      </IconButton>
+                    </Box>
+                  )}
+                </Box>
               </CardActions>
+
+              {/* //item description box */}
+              <div style={{ height: showDescription ? "auto" : 0 }}>
+                <Box p={2}>{description}</Box>
+              </div>
             </Card>
 
             {/* //hide confiration box */}

@@ -68,3 +68,13 @@ export const LoadAdminProfileEdit = ({ component, ...pathProps }) => {
     <Redirect to="/login" />
   );
 };
+
+//stock items update
+export const LoadStockItemsUpdate = ({ component, ...pathProps }) => {
+  const isAuthorized = localStorage.getItem("UserPosSystem");
+  return isAuthorized ? (
+    <Route {...pathProps} component={component} />
+  ) : (
+    <Redirect to="/pos" />
+  );
+};

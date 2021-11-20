@@ -17,6 +17,7 @@ import { Payments } from "./pages/payments/payments";
 import { System } from "./POS_APP/system";
 import { ProfileEdit } from "./pages/editAdminProfile/profileedit";
 import { NotFound } from "./pages/notFound/notFound";
+import { StockItemsUpdate } from "./POS_APP/POS_Pages/stockItemsUpdate";
 import {
   ProtectedLogin,
   DirectLogin,
@@ -24,6 +25,7 @@ import {
   PaymentsPage,
   LoadPosSystem,
   LoadAdminProfileEdit,
+  LoadStockItemsUpdate,
 } from "./pages/protectedLogin/protectedRoutes";
 
 const uh = process.env.REACT_APP_USERHOME;
@@ -44,6 +46,11 @@ ReactDOM.render(
                 exact
                 path="/editAdmin"
                 component={ProfileEdit}
+              />
+              <LoadStockItemsUpdate
+                exact
+                path="/editItem"
+                component={StockItemsUpdate}
               />
               <DirectLogin exact path="/" component={IndexPage} />
               <Route component={NotFound} />
