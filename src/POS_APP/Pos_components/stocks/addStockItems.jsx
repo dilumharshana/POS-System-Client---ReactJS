@@ -106,7 +106,11 @@ export const AddStockItems = () => {
         <Box mt={5} className={classes.formElementHolders}>
           <div className={classes.formWrapperDiv}>
             <Form onSubmit={formik.handleSubmit}>
-              <ItemForm formik={formik} loading={loading} />
+              <ItemForm
+                formik={formik}
+                loading={loading}
+                buttonText="Add new item"
+              />
             </Form>
           </div>
         </Box>

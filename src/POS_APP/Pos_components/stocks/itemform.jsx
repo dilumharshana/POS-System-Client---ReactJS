@@ -5,7 +5,7 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import { InputField } from "./components/inputField";
 import { Box } from "@mui/system";
 
-export const ItemForm = ({ formik, loading }) => (
+export const ItemForm = ({ formik, loading, buttonText }) => (
   <>
     {/* //barcode  */}
     <InputField
@@ -101,7 +101,7 @@ export const ItemForm = ({ formik, loading }) => (
       </Box>
     ) : (
       <Button type="submit" className="mt-4" style={{ width: "100%" }}>
-        Add new item
+        {buttonText}
       </Button>
     )}
   </>

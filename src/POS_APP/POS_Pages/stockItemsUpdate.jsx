@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import { AppBar, Grid, Toolbar, Typography } from "@material-ui/core";
 import { Box } from "@mui/system";
+import { Image } from "react-bootstrap";
 import Form from "react-bootstrap/form";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -18,7 +20,7 @@ import { jsonConfig, imageConfig } from "../configs/jsonConfig";
 
 //actions
 import { setStock } from "../../state/actions/actionSetStock/actionSetStock";
-import { Image } from "react-bootstrap";
+import { setSelectItem } from "../../state/actions/actionSelectedStockItem/actionSelectedStockItem";
 
 export const StockItemsUpdate = () => {
   const [loading, setLoading] = useState(false);
@@ -34,6 +36,13 @@ export const StockItemsUpdate = () => {
 
   //actions
   const reloadStock = bindActionCreators(setStock, useDispatch());
+  const reloadSelectedStockItem = bindActionCreators(
+    setSelectItem,
+    useDispatch()
+  );
+
+  //history
+  const history = useHistory();
 
   //this function pass to formik to run on onSubmit event
   const onSubmit = async () => {
@@ -41,14 +50,23 @@ export const StockItemsUpdate = () => {
       setLoading(true);
       //getting aws image upload url friom backend server
 
-      // const fileExtention = formik.values.itemImage.split(".");
+      //if image selected for upload
+      let uploadUrl = "";
+      if (formik.values.itemImage) {
+        const { data: recievedUploadUrl } = await axios.get(
+          `/api/useposapp/stock/generateImageUploadUrl/${formik.values.itemCode}`
+        );
 
-      const { data: uploadUrl } = await axios.get(
-        `/api/useposapp/stock/generateImageUploadUrl/${formik.values.itemCode}`
-      ); //.${fileExtention[fileExtention.length - 1]}
+        uploadUrl = recievedUploadUrl;
 
-      //uploading item image to aws bucket
-      await axios.put(uploadUrl, formik.values.itemImage, imageConfig);
+        //uploading item image to aws bucket
+        const x = await axios.put(
+          uploadUrl,
+          formik.values.itemImage,
+          imageConfig
+        );
+        console.log(x);
+      }
 
       //setting new item data object
       //extracting existing image data from formik object
@@ -60,35 +78,36 @@ export const StockItemsUpdate = () => {
       const newItemData = {
         systemID: nameId,
         ...itemdata,
-        itemImage: uploadUrl.split("?")[0],
+        currentItemCode: stockItem.itemCode,
+        itemImage: formik.values.itemImage
+          ? uploadUrl.split("?")[0]
+          : stockItem.itemImage,
       };
 
       //store item data in mongodb
       const response = await axios.post(
-        "/api/useposapp/stock/addItem",
+        "/api/useposapp/stock/update",
         newItemData,
         jsonConfig
       );
 
       //reload system stocks to redux
       reloadStock(nameId);
+      reloadSelectedStockItem(response.data);
 
       //notify
-      toast.success("New item added successfully !", {
+      toast.success("Item Updated successfully !", {
         position: "top-center",
         theme: "colored",
         autoClose: 2000,
       });
 
-      //resetting form
-      formik.resetForm();
-      formik.setFieldValue("itemImage", null);
-
       setLoading(false);
+      // history.push("/pos");
     } catch (error) {
       setLoading(false);
       console.log(error.response.data);
-      toast.error("Unable to add new item , Try again !", {
+      toast.error("Unable to update item , Try again !", {
         position: "bottom-right",
         theme: "colored",
       });
@@ -117,7 +136,11 @@ export const StockItemsUpdate = () => {
           <Grid lg={6} xl={6}>
             <Form onSubmit={formik.handleSubmit}>
               <Box mb={2}>
-                <ItemForm formik={formik} loading={loading} />
+                <ItemForm
+                  formik={formik}
+                  loading={loading}
+                  buttonText="Update"
+                />
               </Box>
             </Form>
           </Grid>

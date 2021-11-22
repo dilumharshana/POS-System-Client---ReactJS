@@ -1,20 +1,17 @@
 import { useSelector } from "react-redux";
-import { AppBar, IconButton, Toolbar, Typography } from "@material-ui/core";
-import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
+import { AppBar, Toolbar, Typography } from "@material-ui/core";
 import StoreIcon from "@mui/icons-material/Store";
 
 //styles
 import { styles } from "./posNavBarStyles";
-import { Box } from "@mui/system";
+import { Box, typography } from "@mui/system";
 
 export const PosNavBar = (props) => {
-  const { history } = props;
-
   //setting styles
   const classes = styles()();
 
   //getting current system
-  const currentSystem = useSelector((store) => store.currentSystem);
+  const { currentSystem, tabName } = useSelector((store) => store);
 
   return (
     <AppBar className={classes.root}>
@@ -29,15 +26,17 @@ export const PosNavBar = (props) => {
             </Typography>
           </Box>
         </Box>
-        <IconButton
-          onClick={() => {
-            localStorage.removeItem("UserPosSystem");
-            history.push("/login");
-          }}
-          className={classes.powerBtn}
+        <Box
+          className={classes.tabName}
+          p={1}
+          display="flex"
+          alignItems="center"
         >
-          <PowerSettingsNewIcon />
-        </IconButton>
+          <Box className={classes.arrow} mr={1}>
+            {"<"}
+          </Box>
+          <Box>{tabName}</Box>
+        </Box>
       </Toolbar>
     </AppBar>
   );

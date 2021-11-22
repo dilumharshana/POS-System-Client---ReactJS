@@ -10,9 +10,17 @@ export const styles = () =>
       color: "#fff",
       fontWeight: "bold",
     },
-    powerBtn: {
+    tabName: {
+      fontFamily: "arial ,sans-serif",
+      fontWeight: "bold",
       marginLeft: "auto",
-      border: "1px solid #fff",
       color: "#fff",
+    },
+    arrow: {
+      fontFamily: "arial ,sans-serif",
+      fontSize: "30px",
+      fontWeight: "bold",
+      marginLeft: "auto",
+      color: "orange",
     },
   });

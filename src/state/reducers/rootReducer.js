@@ -8,6 +8,7 @@ import { currentSystem } from "./currentSystem/Reducer-currentSystem";
 import { systemStock } from "./systemStock/Reducer-systemStock";
 import { stockItemSearch } from "./systemItemSearch/Reducer-systemItemSearch";
 import { selectedStockItem } from "./selectedStockItem/Reducer-SelectedStockItem";
+import { tabName } from "./selectedTabName/currentTabName";
 
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   systemStock,
   stockItemSearch,
   selectedStockItem,
+  tabName,
 });
 
 export const reducers = persistReducer(persistConfig, rootReducer);
