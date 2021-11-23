@@ -41,7 +41,14 @@ export function PageTabs() {
       }}
     >
       <TabPanel value={value} index={0}>
-        <BillingPanel />
+        <Box
+          style={{
+            background: "#f2f5f0",
+            height: window.innerHeight,
+          }}
+        >
+          <BillingPanel />
+        </Box>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Stocks />

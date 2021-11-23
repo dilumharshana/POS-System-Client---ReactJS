@@ -1,5 +1,3 @@
-const App = (props) => {
-  return props.children;
-};
+const App = (props) => props.children;
 
 export default App;

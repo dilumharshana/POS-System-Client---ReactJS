@@ -4,8 +4,6 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 
-import { styles } from "./categoryStyles";
-
 //basic card component generator
 export const CategoryCard = (props) => {
   return (
