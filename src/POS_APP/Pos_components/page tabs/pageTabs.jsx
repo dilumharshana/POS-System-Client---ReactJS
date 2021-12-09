@@ -16,7 +16,7 @@ export const TabPanel = (props) => {
       hidden={value !== index}
       style={{
         width: window.innerWidth,
-        height: window.innerHeight,
+        height: "auto",
       }}
     >
       {value === index && children}
@@ -44,7 +44,7 @@ export function PageTabs() {
         <Box
           style={{
             background: "#f2f5f0",
-            height: window.innerHeight,
+            height: "auto",
           }}
         >
           <BillingPanel />

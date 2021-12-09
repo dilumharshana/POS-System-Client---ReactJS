@@ -16,7 +16,7 @@ export const PosSystems = (props) => {
 
   //systems not loaded
   if (!systems || systems.length === 0) {
-    return <NoSystemsBanner />;
+    return <NoSystemsBanner message="You have no systems ..." />;
   }
 
   const defaultSystemList = () => (

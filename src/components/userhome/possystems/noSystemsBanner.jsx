@@ -4,7 +4,7 @@ import InfoIcon from "@mui/icons-material/Info";
 //styles
 import { styles } from "./possystemsStyles";
 
-export const NoSystemsBanner = () => {
+export const NoSystemsBanner = ({message}) => {
   const classes = styles()();
   return (
     <Grid container justifyContent="center">
@@ -18,7 +18,7 @@ export const NoSystemsBanner = () => {
         <Box>
           <InfoIcon />
         </Box>
-        <Box ml={2}> No systems Available </Box>
+        <Box ml={2}> {message} </Box>
       </Box>
     </Grid>
   );

@@ -8,6 +8,7 @@ export const setStock = (systemID) => async (dispatch) => {
       `/api/possystems/getstock/${systemID}`,
       config
     );
+    console.log(data)
     return dispatch({
       type: LOAD_SYSTEM_STOCK,
       payload: data,

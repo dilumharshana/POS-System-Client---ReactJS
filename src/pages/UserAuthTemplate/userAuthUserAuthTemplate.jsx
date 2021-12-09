@@ -14,35 +14,38 @@ export const UserAuthTemplate = (props) => {
   const classes = useStyles();
 
   return (
-    <Grid
-      container
-      style={{ height: "100vh" }}
-      justifyContent="center"
-      alignItems="center"
-    >
-      <AppBar color="transparent">
-        <Toolbar>
-          <Box>
-            {" "}
-            <Link to="/">Home</Link>
-          </Box>
+    <div className={classes.background}>
+      <Grid
+        container
+        style={{ height: "100vh" }}
+        justifyContent="center"
+        alignItems="center"
+      >
+        <AppBar color="transparent" style={{ boxShadow: "none" }}>
+          <Toolbar>
+            <Box>
+              <Link to="/">
+                <Box className={classes.navlinks}>Home</Box>
+              </Link>
+            </Box>
 
-          <Box style={{ marginLeft: "auto" }}>
-            <Link to={props.page === "Login" ? "/login" : "/register"}>
-              {props.page}
-            </Link>
-          </Box>
-        </Toolbar>
-      </AppBar>
+            <Box style={{ marginLeft: "auto" }}>
+              <Link to={props.page === "Login" ? "/login" : "/register"}>
+                <Box className={classes.navlinks}>{props.page}</Box>
+              </Link>
+            </Box>
+          </Toolbar>
+        </AppBar>
 
-      <Grid item xs={11} sm={11} md={8} lg={4} xl={4}>
-        {!userLoginFail.state && (
-          <Alert variant="danger">{userLoginFail.message}</Alert>
-        )}
-        <Paper elevation="3" className={classes.paper}>
-          {props.children}
-        </Paper>
+        <Grid item xs={11} sm={11} md={7} lg={3} xl={3}>
+          {!userLoginFail.state && (
+            <Alert variant="danger">{userLoginFail.message}</Alert>
+          )}
+          <Paper elevation="3" className={classes.paper}>
+            {props.children}
+          </Paper>
+        </Grid>
       </Grid>
-    </Grid>
+    </div>
   );
 };

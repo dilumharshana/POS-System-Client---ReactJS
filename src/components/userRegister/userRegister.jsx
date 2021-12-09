@@ -205,10 +205,10 @@ export const UserRegister = () => {
               pt={2}
               display="flex"
               justifyContent="center"
-              mt={2}
+              mt={1}
               mb={3}
             >
-              <Button size="large" variant="contained">
+              <Button size="small" variant="contained">
                 Sign In with google
               </Button>
             </Box>

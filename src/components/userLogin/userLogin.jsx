@@ -137,7 +137,7 @@ export const UserLogin = () => {
           <Grid item>
             <Box item pt={2} display="flex" justifyContent="center">
               {loading ? (
-                <CircularProgress color="secondary" />
+                <CircularProgress />
               ) : (
                 <Button type="submit" size="large" variant="contained">
                   Sign In
@@ -159,13 +159,13 @@ export const UserLogin = () => {
           <Grid item>
             <Box
               item
-              pt={2}
+              pt={1}
               display="flex"
               justifyContent="center"
               mt={2}
               mb={3}
             >
-              <Button size="large" variant="contained">
+              <Button size="small" variant="contained">
                 Sign In with google
               </Button>
             </Box>

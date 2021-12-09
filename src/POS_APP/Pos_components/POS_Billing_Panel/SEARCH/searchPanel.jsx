@@ -1,5 +1,12 @@
-import { Search } from "./search";
+import { Grid } from "@material-ui/core";
 
-export const SearchPanel = (props) => {
-  return <Search />;
-};
+//components
+import { Search } from "./search";
+import { SmallItemCard } from "./items";
+
+export const SearchPanel = (props) => (
+  <Grid>
+    <Search />
+    <SmallItemCard />
+  </Grid>
+);
